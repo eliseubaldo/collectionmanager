@@ -1,0 +1,1 @@
+var collectionApp = angular.module('collectionApp', []);
