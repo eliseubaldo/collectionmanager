@@ -27,8 +27,8 @@
 //@import "bootstrap/dropdowns";
 //@import "bootstrap/button-groups";
 //@import "bootstrap/input-groups";
-//@import "bootstrap/navs";
-//@import "bootstrap/navbar";
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
 //@import "bootstrap/breadcrumbs";
 //@import "bootstrap/pagination";
 //@import "bootstrap/pager";
@@ -50,6 +50,9 @@
 //@import "bootstrap/tooltip";
 //@import "bootstrap/popovers";
 //@import "bootstrap/carousel";
+
+// Custom
+@import "bootstrap/modules/base";
 
 // Utility classes
 @import "bootstrap/utilities";
