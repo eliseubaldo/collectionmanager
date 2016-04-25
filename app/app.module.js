@@ -1,19 +1,27 @@
-var app = angular.module('collectionApp', ['ui.router', 'ngMaterial']);
+(function(){
+    'user strict';
 
-app.config(function ($stateProvider,$urlRouterProvider) {
+    angular.module('collectionApp', ['ui.router', 'ngMaterial']);
 
-    $urlRouterProvider.otherwise('/home');
+    angular
+        .module('collectionApp')
+        .config(function ($stateProvider,$urlRouterProvider) {
 
-	$stateProvider.state("home", {
-        url: "/home",
-        controller: "homeCtrl",
-        templateUrl: "app/views/home.html"
-    })
+            $urlRouterProvider.otherwise('/home');
 
-    $stateProvider.state("newcollection", {
-        url: "/newcollection",
-        controller: "newCollectionCtrl",
-        templateUrl: "app/views/newcollection.html"
-    })
-  
-});
+            $stateProvider.state("home", {
+                url: "/home",
+                controller: "homeCtrl",
+                templateUrl: "app/views/home.html"
+            })
+
+            $stateProvider.state("newcollection", {
+                url: "/newcollection",
+                controller: "newCollectionCtrl",
+                templateUrl: "app/views/newcollection.html"
+            })
+          
+        });
+    
+})();
+
