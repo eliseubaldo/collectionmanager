@@ -20,6 +20,18 @@
                 controller: "newCollectionCtrl",
                 templateUrl: "app/views/newcollection.html"
             })
+
+            $stateProvider.state("addcategory", {
+                url: "/addcategory",
+                controller: "addCategoryCtrl",
+                templateUrl: "app/views/addcategory.html"
+            })
+
+            $stateProvider.state("additem", {
+                url: "/additem",
+                controller: "addItemCtrl",
+                templateUrl: "app/views/additem.html"
+            })
           
         });
     
