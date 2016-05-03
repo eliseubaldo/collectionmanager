@@ -1,15 +1,15 @@
 <div class="container">
 	<h2>Category</h2>
 
-	
-	<label for="">Category Name</label>
-	<input type="text">
+	<form method="post" accept-charset="utf-8">
+		<label for="">Category Name</label>
+		<input type="text" ng-model="category.name">
 
-	<label for="">Year</label>	
-	<input type="text">
+		<label for="">Year</label>	
+		<input type="text" ng-model="category.year">
 
-	<button type="">Save</button>
-
+		<button type="">Save</button>
+	</form>
 
 	<h4>Categories for Collection XXXX</h4>
 	<table>

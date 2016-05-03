@@ -1,11 +1,26 @@
 <div class="container">
 	<h2>Collection</h2>
 
-	<input type="text">
+	<form method="post" accept-charset="utf-8">
+		<label>Enter your collection name</label>	
+		<input type="text" ng-model="collection.name">
+		<button type="sbumit">Save</button>
+	</form>
+	<hr/>
 
-	<p>
-		Enter your collection name
-	</p>	
+	<h4>Collections available</h4>
+	<table>
+		<thead>
+			<tr>
+				<th>Col</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>data</td>				
+			</tr>
+		</tbody>
+	</table>
 
 	
 </div>
