@@ -42,9 +42,7 @@ angular
             	});
 		}
 
-		function updateview(type){
-
-		}
+		
 
 
 

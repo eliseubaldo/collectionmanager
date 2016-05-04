@@ -7,6 +7,7 @@ angular
 	
 	var factory = {};
 
+
 	factory.addCollection = function(collection){
 		console.log(collection);
 		return $http.post('include.php?type=col',collection);
@@ -22,6 +23,9 @@ angular
 		switch (type) {
 			case 'collection':
 				return $http.get('updatelist.php?type=col');
+			break;
+			case 'category':
+				return $http.get('updatelist.php?type=cat');
 			break;
 
 		}
