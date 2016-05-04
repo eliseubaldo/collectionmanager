@@ -23,20 +23,31 @@ var gulp = require('gulp'),
 	});
 
 	gulp.task('scripts', function() {
-  	return gulp.src('src/scripts/**/*.js')
+  	return gulp.src('app/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('dist/app'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('dist/app'))
     .pipe(notify({ message: 'Scripts task complete' }));
 	});
+
+    gulp.task('views', function(){
+        gulp.src('index.html')
+        .pipe(gulp.dest('dist'));
+        gulp.src('views/**/*')
+        .pipe(gulp.dest('dist/views/'));
+    });
 
 	gulp.task('watch', function() {
 	  // Watch .scss files
 	  gulp.watch('src/styles/**/*.scss', ['styles']);
 	  // Watch .js files
-	  gulp.watch('src/scripts/**/*.js', ['scripts']);
+	  gulp.watch('app/**/*.js', ['scripts']);
+      // Views
+      gulp.watch('app/views/**/*.html', ['views']);
+      gulp.watch('index.html', ['views']);
+
 	});

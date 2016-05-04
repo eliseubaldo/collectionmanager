@@ -30,7 +30,7 @@ angular
             	}); 
 			}
 
-		}
+		};
 
 		function updateCollection(){
 			ioService.updateList('collection')
@@ -41,7 +41,7 @@ angular
                 	alert('Error:', response.status, response.data);
             	});
 		}
-		
+
 
 
 

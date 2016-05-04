@@ -12,26 +12,26 @@
             $stateProvider.state("home", {
                 url: "/home",
                 controller: "homeCtrl",
-                templateUrl: "app/views/home.html"
-            })
+                templateUrl: "views/home.html"
+            });
 
             $stateProvider.state("newcollection", {
                 url: "/newcollection",
                 controller: "newCollectionCtrl",
-                templateUrl: "app/views/newcollection.html"
-            })
+                templateUrl: "views/newcollection.html"
+            });
 
             $stateProvider.state("addcategory", {
                 url: "/addcategory",
                 controller: "addCategoryCtrl",
-                templateUrl: "app/views/addcategory.html"
-            })
+                templateUrl: "views/addcategory.html"
+            });
 
             $stateProvider.state("additem", {
                 url: "/additem",
                 controller: "addItemCtrl",
-                templateUrl: "app/views/additem.html"
-            })
+                templateUrl: "views/additem.html"
+            });
           
         });
     
