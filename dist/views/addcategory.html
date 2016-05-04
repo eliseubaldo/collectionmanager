@@ -1,0 +1,34 @@
+<div class="container">
+	<h2>Category</h2>
+
+	<form name="categoryForm" ng-submit="submitForm(category)" accept-charset="utf-8" novalidate>
+
+		<label for="">Collection</label>
+
+		<select name="repeatSelect" id="repeatSelect" ng-model="category.collection">
+      		<option ng-repeat="option in collectionList" value="{{option.collection_id}}">{{option.collection_name}}</option>
+    	</select>
+		
+
+		<label for="">Category Name</label>
+		<input type="text" ng-model="category.name">
+
+		<label for="">Year</label>	
+		<input type="text" ng-model="category.year">
+
+		<button type="">Save</button>
+	</form>
+
+	<h4>Categories for Collection XXXX</h4>
+	<table>
+		<tbody>
+			<tr ng-repeat="category in categoryList">
+				<td>{{category_year}}</td>
+				<td>{{category_name}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	
+</div>
+

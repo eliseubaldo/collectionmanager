@@ -34,7 +34,7 @@ angular
             	}); 
 			}
 
-		}
+		};
 
 		function updateCategory(){
 			ioService.updateList('category')

@@ -15,6 +15,18 @@
 			
 
 	    	break;
+
+	    case "cat":
+	        $query = mysqli_query($conn, 'SELECT * FROM category');
+
+			$rows = array();
+			while($r = mysqli_fetch_assoc($query)) {
+			    $rows[] = $r;
+			}
+			print json_encode($rows);
+			
+
+	    	break;
 	   
 	}
 
