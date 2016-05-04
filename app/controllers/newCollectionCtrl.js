@@ -41,10 +41,7 @@ angular
                 	alert('Error:', response.status, response.data);
             	});
 		}
-
-		function updateview(type){
-
-		}
+		
 
 
 
