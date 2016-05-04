@@ -6,26 +6,51 @@ angular
 	.module('collectionApp')
 	.controller('newCollectionCtrl', newCollectionCtrl);
 
-	newCollectionCtrl.$inject = ['$scope'];
+	newCollectionCtrl.$inject = ['$scope', 'ioService'];
 
-	function newCollectionCtrl ($scope){
+	function newCollectionCtrl ($scope, ioService){
 
-		$scope.submitForm = function(contact){
-			if($scope.ContactForm.$valid){
-				ContactService.addContact(contact)
+		$scope.collectionList = [];
+
+		updateCollection();
+
+		$scope.submitForm = function(collection){
+			if($scope.collectionForm.$valid){
+				console.log(collection);
+
+				ioService.addCollection(collection)
 				.then(function(response){
-					$scope.ContactForm.$setPristine();
-					$scope.contact = null;
-					alert(' Contact added!');
+					$scope.collectionForm.$setPristine();
+					$scope.collection = null;
+					alert(response.data);
+					updateCollection();
 				})
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
-            	});
+            	}); 
 			}
 
 		}
 
+		function updateCollection(){
+			ioService.updateList('collection')
+				.then(function(response){
+					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
+		function updateview(type){
+
+		}
+
+
+
+
 	}
+
 
 })();	
 

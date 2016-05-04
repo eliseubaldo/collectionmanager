@@ -3382,8 +3382,19 @@ input[type="button"].btn-block {
   color: #444;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .navbar-brand > img {
   height: 100%;
+}
+
+footer {
+  background: #e6e6e6;
+  color: black;
+  margin-top: 20px;
+  padding: 20px 0;
 }
 
 .clearfix:before, .clearfix:after {

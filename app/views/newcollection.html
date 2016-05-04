@@ -1,23 +1,18 @@
 <div class="container">
 	<h2>Collection</h2>
 
-	<form method="post" accept-charset="utf-8">
+	<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
 		<label>Enter your collection name</label>	
-		<input type="text" ng-model="collection.name">
-		<button type="sbumit">Save</button>
+		<input type="text" ng-model="collection.name" required>
+		<button type="submit" ng-disabled="collectionForm.$invalid">Save</button>
 	</form>
 	<hr/>
 
 	<h4>Collections available</h4>
 	<table>
-		<thead>
-			<tr>
-				<th>Col</th>
-			</tr>
-		</thead>
 		<tbody>
-			<tr>
-				<td>data</td>				
+			<tr ng-repeat="collection in collectionList ">
+				<td>{{collection.collection_name}}</td>				
 			</tr>
 		</tbody>
 	</table>
