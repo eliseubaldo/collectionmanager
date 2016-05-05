@@ -5,26 +5,26 @@
 
 		<label for="">Collection</label>
 
-		<select name="repeatSelect" id="repeatSelect" ng-model="category.collection">
-      		<option ng-repeat="option in collectionList" value="{{option.collection_id}}">{{option.collection_name}}</option>
+    	<select name="repeatSelect" id="rr" ng-model="category.collection" required ng-options="collection.collection_name for collection in collectionList">
+			
     	</select>
-		
+
 
 		<label for="">Category Name</label>
-		<input type="text" ng-model="category.name">
+		<input type="text" ng-model="category.name" required>
 
 		<label for="">Year</label>	
 		<input type="text" ng-model="category.year">
 
-		<button type="">Save</button>
+		<button type="submit">Save</button>
 	</form>
 
-	<h4>Categories for Collection XXXX</h4>
+	<h4>Categories for <strong>{{category.collection.collection_name}}</strong></h4>
 	<table>
 		<tbody>
-			<tr ng-repeat="category in categoryList">
-				<td>{{category_year}}</td>
-				<td>{{category_name}}</td>
+			<tr ng-repeat="category in categoryList | filter: category.collection.collection_id">
+				<td>{{category.category_year}}</td>
+				<td>{{category.category_name}}</td>
 			</tr>
 		</tbody>
 	</table>

@@ -13,6 +13,7 @@ angular
 		$scope.categoryList = [];
 
 		$scope.collectionList = [];
+		$scope.selectedOption = {}
 
 		getCollections();
 
@@ -20,9 +21,16 @@ angular
 
 		$scope.submitForm = function(category){
 			if($scope.categoryForm.$valid){
-				console.log(category);
+				var newcat = {};
+				newcat.name = category.name;
+				newcat.year = category.year;
+				newcat.collection = category.collection.collection_id;
+				//I created a newcat to select the appropriate collection Id 
+				// coz the select is passing a model of category.collection as full object
+				//It is like that coz I wanted to use the select to include and also get its 
+				// value to show below on categories for that collection
 
-				ioService.addCategory(category)
+				ioService.addCategory(newcat)
 				.then(function(response){
 					$scope.categoryForm.$setPristine();
 					$scope.category = null;

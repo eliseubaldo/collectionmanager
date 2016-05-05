@@ -41,13 +41,21 @@ var gulp = require('gulp'),
         .pipe(gulp.dest('dist/views/'));
     });
 
+    gulp.task('backend', function(){
+        gulp.src('backend/**/*')
+        .pipe(gulp.dest('dist/backend/'));
+    });
+
 	gulp.task('watch', function() {
 	  // Watch .scss files
 	  gulp.watch('src/styles/**/*.scss', ['styles']);
 	  // Watch .js files
 	  gulp.watch('app/**/*.js', ['scripts']);
       // Views
-      gulp.watch('app/views/**/*.html', ['views']);
+      gulp.watch('views/**/*.html', ['views']);
       gulp.watch('index.html', ['views']);
+      //backend
+      gulp.watch('backend/**/*.php', ['backend']);
+
 
 	});
