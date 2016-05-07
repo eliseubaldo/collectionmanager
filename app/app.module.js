@@ -1,7 +1,7 @@
 (function(){
     'user strict';
 
-    angular.module('collectionApp', ['ui.router', 'ngMaterial']);
+    angular.module('collectionApp', ['ui.router', 'ngMaterial', 'ngFileUpload' ]);
 
     angular
         .module('collectionApp')

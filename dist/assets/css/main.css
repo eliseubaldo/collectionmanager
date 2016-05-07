@@ -3390,6 +3390,12 @@ body {
   height: 100%;
 }
 
+.thumb {
+  width: 100px;
+  height: auto;
+  max-height: 100px;
+}
+
 footer {
   background: #e6e6e6;
   color: black;

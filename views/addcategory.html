@@ -5,8 +5,7 @@
 
 		<label for="">Collection</label>
 
-    	<select name="repeatSelect" id="rr" ng-model="category.collection" required ng-options="collection.collection_name for collection in collectionList">
-			
+    	<select name="repeatSelect" id="rr" ng-model="category.collection" required ng-options="collection.collection_name for collection in collectionList">		
     	</select>
 
 
@@ -19,16 +18,29 @@
 		<button type="submit">Save</button>
 	</form>
 
-	<h4>Categories for <strong>{{category.collection.collection_name}}</strong></h4>
-	<table>
+	<hr>
+
+	<h4>Categories in <strong>{{category.collection.collection_name}} </strong> collection</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>category year</th>
+				<th>category name</th>
+				<th>category id</th>
+
+			</tr>
+		</thead>
 		<tbody>
-			<tr ng-repeat="category in categoryList | filter: category.collection.collection_id">
-				<td>{{category.category_year}}</td>
-				<td>{{category.category_name}}</td>
+			<tr ng-repeat="category in categoryList | filter:{collection_id: category.collection.collection_id} | orderBy: 'category_year'">
+				<td>{{category.category_year}} </td>
+				<td>{{category.category_name}} </td>
+				<td>{{category.category_id}} </td>
 			</tr>
 		</tbody>
 	</table>
 
 	
+
+
 </div>
 

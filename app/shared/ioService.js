@@ -18,6 +18,11 @@ angular
 		return $http.post('backend/include.php?type=cat',category);
 	};
 
+	/*factory.addItem = function(item){
+		console.log(item);
+		return $http.post('backend/include.php?type=item',item);
+	}; */
+
 	factory.singleContact = function(id){
 		
 		return $http.get('backend/getcontact.php?id=' + id);

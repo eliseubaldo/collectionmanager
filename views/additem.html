@@ -1,20 +1,31 @@
 <div class="container">
 	<h2>Add Item</h2>
 
-	<form accept-charset="utf-8">
-		<label for="">Item Category</label>
-		<input type="text" ng-model="item.category">
+	<form name="itemForm" ng-submit="submitForm(item)" accept-charset="utf-8">
+		<label for="">Select Collection</label>
+		<select name="repeatSelect" id="rr" ng-model="item.collection" required ng-options="collection.collection_name for collection in collectionList">
+    	</select>
 
-		<label for="">Item Name</label>	
-		<input type="text" ng-model="item.name">
+    	<label>Select Category</label>    	
+		<select name="repeatSelect" id="rr" ng-model="item.category" required ng-options="category.category_name for category in (categoryList | filter: {collection_id: item.collection.collection_id })">
+    	</select>
 
-		<label for="">Item Desc</label>	
-		<input type="text" ng-model="item.desc">
+		<p><label for="">Item Name</label>	
+				<input type="text" ng-model="item.name" required></p>
 
-		<label for="">Item Pic</label>	
-		<input type="text" ng-model="item.picture">	
+		<p><label for="">Item Desc</label>	
+				<input type="text" ng-model="item.desc"></p>
 
-		<button type="submit">Save</button>
+		<p><label for="">Item Pic</label>	
+			<input type="file" ngf-select ng-model="item.picture" name="file"    
+             accept="image/*" ngf-max-size="2MB" required
+             ngf-model-invalid="errorFile">
+
+              <img ng-show="myForm.file.$valid" ngf-thumbnail="item.picture" class="thumb"> <button ng-click="item.picture = null" ng-show="item.picture">Remove</button>
+
+		</p>
+
+		<p><button type="submit">Save</button></p>
 	</form>
 
 	

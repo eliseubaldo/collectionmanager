@@ -11,9 +11,8 @@ angular
 	function addCategoryCtrl ($scope, ioService){
 
 		$scope.categoryList = [];
-
 		$scope.collectionList = [];
-		$scope.selectedOption = {}
+		
 
 		getCollections();
 
