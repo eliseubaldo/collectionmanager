@@ -6,13 +6,14 @@ angular
 	.module('collectionApp')
 	.controller('browseCtrl', browseCtrl);
 
-	browseCtrl.$inject = ['$scope', 'ioService'];
+	browseCtrl.$inject = ['$scope', 'ioService', 'config'];
 
-	function browseCtrl ($scope, ioService){
+	function browseCtrl ($scope, ioService, config){
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
-		$scope.itemList = [];		
+		$scope.itemList = [];
+		$scope.uploadpath = config.uploadpath;		
 
 		getCollections();
 		getCategory();
