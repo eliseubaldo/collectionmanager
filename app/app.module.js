@@ -32,6 +32,12 @@
                 controller: "addItemCtrl",
                 templateUrl: "views/additem.html"
             });
+
+            $stateProvider.state("browse", {
+                url: "/browse",
+                controller: "browseCtrl",
+                templateUrl: "views/browsecollection.html"
+            });
           
         });
     

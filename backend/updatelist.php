@@ -27,6 +27,18 @@
 			
 
 	    	break;
+
+	     case "item":
+	        $query = mysqli_query($conn, 'SELECT * FROM item');
+
+			$rows = array();
+			while($r = mysqli_fetch_assoc($query)) {
+			    $rows[] = $r;
+			}
+			print json_encode($rows);
+			
+
+	    	break;
 	   
 	}
 

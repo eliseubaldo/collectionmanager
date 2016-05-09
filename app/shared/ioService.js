@@ -37,6 +37,9 @@ angular
 			case 'category':
 				return $http.get('backend/updatelist.php?type=cat');
 			break;
+			case 'item':
+				return $http.get('backend/updatelist.php?type=item');
+			break;
 
 		}
 	};

@@ -1,0 +1,48 @@
+<div class="container">
+	<h2>View Collection</h2>
+
+	
+ 	<label for="">Select Collection</label>
+	<select name="selectCollection" id="scol" ng-model="collection" ng-options="collection.collection_name for collection in collectionList">
+    </select>
+
+    <label>Select Category</label>    	
+	<select name="selectCategory" id="scat" ng-model="category" ng-options="category.category_name for category in (categoryList | filter: {collection_id: collection.collection_id })">
+    </select>
+
+
+
+
+	<hr>
+
+	<h4>Items in <strong>{{category.category_name}} </strong> category</h4>
+	<table class="table" ng-show="category.category_id">
+		<thead>
+			<tr>
+				<th>category year / Name</th>
+				<th>Item name</th>
+				<th>Item Desc</th>
+				<th>Category Id</th>
+				<th>Item pic</th>
+				<th>Item ID</th>
+				
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in itemList | filter:{category_id: category.category_id}:true | orderBy: 'item_name'">
+				<td>{{category.category_id}} - {{category.category_name}}</td>
+				<td>{{item.item_name}}</td>
+				<td>{{item.item_desc}}</td>
+				<td>{{item.category_id}}</td>
+				<td><img ng-src="{{'uploads/' + collection.collection_name +'/'+item.item_picture}}" alt=""></td>
+				<td>{{item.item_id}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	
+
+
+</div>
+
