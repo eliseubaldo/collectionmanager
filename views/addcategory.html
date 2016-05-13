@@ -1,26 +1,62 @@
 <div class="container">
-	<h2>Category</h2>
-
-	<form name="categoryForm" ng-submit="submitForm(category)" accept-charset="utf-8" novalidate>
-
-		<label for="">Collection</label>
-
-    	<select name="repeatSelect" id="rr" ng-model="category.collection" required ng-options="collection.collection_name for collection in collectionList">		
-    	</select>
+	<div layout="row">
+		<div flex-sm="100" flex-gt-sm="80">
+			<h2>Category</h2>
+		</div>	
+	</div>
 
 
-		<label for="">Category Name</label>
-		<input type="text" ng-model="category.name" required>
+	
 
-		<label for="">Year</label>	
-		<input type="text" ng-model="category.year">
+			<form name="categoryForm" ng-submit="submitForm(category)" accept-charset="utf-8" novalidate>
 
-		<button type="submit">Save</button>
-	</form>
+				<div layout="row">		
+
+					<div flex-sm="50" flex-gt-sm="50">
+						<md-input-container class="md-block flex-gt-sm">
+						  <label>Select Collection</label>
+					        <md-select ng-model="category.collection" required>
+					          <md-option ng-repeat="collection in collectionList" value="{{collection.collection_id}}">{{collection.collection_name}}</md-option>
+					        </md-select>
+					     
+
+						</md-input-container>
+					</div>
+				</div>
+
+				<div layout="row">		
+					<div flex-sm="50" flex-gt-sm="50">
+						<md-input-container class="md-block flex-gt-sm">
+							<label>Enter category name</label>	
+							<input type="text" ng-model="category.name" required>
+							<div ng-messages="category.name.$error">
+				      			<div ng-message="required">Category is required!</div>
+				    		</div>
+						</md-input-container>
+					</div>
+
+
+					<div flex-sm="50" flex-gt-sm="50">
+						<md-input-container class="md-block flex-gt-sm">
+							<label>Enter category year</label>	
+							<input type="text" ng-model="category.year">						
+						</md-input-container>
+					</div>		    	
+				</div>
+
+				<div layout="row">		
+					<div flex-sm="50" flex-gt-sm="50">
+						<md-button class="md-raised md-primary" type="submit" ng-disabled="categoryForm.$invalid">Save</md-button>	
+					</div>
+				</div>
+
+				
+			</form>
+
 
 	<hr>
 
-	<h4>Categories in <strong>{{category.collection.collection_name}} </strong> collection</h4>
+	<h4>Categories in <strong>{{category.collection}} </strong> collection</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -31,7 +67,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="category in categoryList | filter:{collection_id: category.collection.collection_id} | orderBy: 'category_year'">
+			<tr ng-repeat="category in categoryList | filter:{collection_id: category.collection} | orderBy: 'category_year'">
 				<td>{{category.category_year}} </td>
 				<td>{{category.category_name}} </td>
 				<td>{{category.category_id}} </td>

@@ -1,22 +1,51 @@
 <div class="container">
-	<h2>Collection</h2>
+	<div layout="row">
+		<div flex-sm="100" flex-gt-sm="80">
+			<h2>Collection</h2>
+		</div>	
+	</div>
+	
+	
+	<div layout="row">
+		<div flex-sm="100" flex-gt-sm="80">
+			
+			<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
+				
+				<md-input-container class="md-block flex-gt-sm">
+					<label>Enter your collection name</label>	
+					<input type="text" ng-model="collection.name" required>
+					<div ng-messages="collection.name.$error">
+		      			<div ng-message="required">Collection is required!</div>
+		    		</div>
+				</md-input-container>
 
-	<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
-		<label>Enter your collection name</label>	
-		<input type="text" ng-model="collection.name" required>
-		<button type="submit" ng-disabled="collectionForm.$invalid">Save</button>
-	</form>
+				<md-button class="md-raised md-primary" type="submit" ng-disabled="collectionForm.$invalid">Save</md-button>			
+				
+				
+			</form>
+			
+		</div>
+	</div>
+		
+	
 	<hr/>
+	
+		<h4>Collections available</h4>
+		
+		<div flex-sm="100" flex-gt-sm="80">
+			<md-list>
+			  <md-list-item class="md-1-line" ng-repeat="collection in collectionList">
+			    <div class="md-list-item-inner">
+			    	<img alt="{{ collection.collection_name }}" class="md-avatar" />
+			      <p>{{collection.collection_name}}</p>	      
+			    </div>
+			  </md-list-item>
+			</md-list>
+		</div>
 
-	<h4>Collections available</h4>
-	<table>
-		<tbody>
-			<tr ng-repeat="collection in collectionList">
-				<td>{{collection.collection_name}}</td>
-				<td></td>				
-			</tr>
-		</tbody>
-	</table>
+	
+
+	
 
 	
 </div>

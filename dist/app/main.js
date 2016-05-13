@@ -71,34 +71,41 @@ angular
 	.module('collectionApp')
 	.controller('addCategoryCtrl', addCategoryCtrl);
 
-	addCategoryCtrl.$inject = ['$scope', 'ioService'];
+	addCategoryCtrl.$inject = ['$scope', 'ioService', '$mdToast', '$animate'];
 
-	function addCategoryCtrl ($scope, ioService){
+	function addCategoryCtrl ($scope, ioService, $mdToast, $animate){
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
-		
 
+		$scope.toastPosition = {
+                bottom: false,
+                top: true,
+                left: false,
+                right: true
+        };
+
+		
 		getCollections();
 
 		updateCategory();
 
-		$scope.submitForm = function(category){
-			if($scope.categoryForm.$valid){
-				var newcat = {};
-				newcat.name = category.name;
-				newcat.year = category.year;
-				newcat.collection = category.collection.collection_id;
-				//I created a newcat to select the appropriate collection Id 
-				// coz the select is passing a model of category.collection as full object
-				//It is like that coz I wanted to use the select to include and also get its 
-				// value to show below on categories for that collection
+        $scope.getToastPosition = function() {
+                return Object.keys($scope.toastPosition)
+                    .filter(function(pos) { return $scope.toastPosition[pos]; })
+                    .join(' ');
+        };
 
-				ioService.addCategory(newcat)
+
+		$scope.submitForm = function(category){
+			console.log("submit:" +category);
+			if($scope.categoryForm.$valid){
+				
+				ioService.addCategory(category)
 				.then(function(response){
+					$mdToast.show( $mdToast.simple().content('Category '+ category.name + ' added !').position($scope.getToastPosition()).hideDelay(3000) );
 					$scope.categoryForm.$setPristine();
-					$scope.category = null;
-					alert(response.data);
+					$scope.category = null;					
 					updateCategory();
 				})
 				.catch(function (response) {
@@ -302,23 +309,36 @@ angular
 	.module('collectionApp')
 	.controller('newCollectionCtrl', newCollectionCtrl);
 
-	newCollectionCtrl.$inject = ['$scope', 'ioService'];
+	newCollectionCtrl.$inject = ['$scope', 'ioService', '$mdToast', '$animate'];
 
-	function newCollectionCtrl ($scope, ioService){
+	function newCollectionCtrl ($scope, ioService, $mdToast, $animate){
 
 		$scope.collectionList = [];
 
 		updateCollection();
 
+		$scope.toastPosition = {
+                bottom: false,
+                top: true,
+                left: false,
+                right: true
+        };
+
+        $scope.getToastPosition = function() {
+                return Object.keys($scope.toastPosition)
+                    .filter(function(pos) { return $scope.toastPosition[pos]; })
+                    .join(' ');
+        };
+
+
 		$scope.submitForm = function(collection){
 			if($scope.collectionForm.$valid){
-				console.log(collection);
-
+				
 				ioService.addCollection(collection)
 				.then(function(response){
+					$mdToast.show( $mdToast.simple().content('Collection '+ collection.name + ' added !').position($scope.getToastPosition()).hideDelay(3000) );
 					$scope.collectionForm.$setPristine();
-					$scope.collection = null;
-					alert(response.data);
+					$scope.collection = '';					
 					updateCollection();
 				})
 				.catch(function (response) {
@@ -333,7 +353,7 @@ angular
 
 		function updateCollection(){
 			ioService.updateList('collection')
-				.then(function(response){
+				.then(function(response){					
 					$scope.collectionList = response.data;
 				})
 				.catch(function (response) {
