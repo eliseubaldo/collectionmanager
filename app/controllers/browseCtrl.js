@@ -48,10 +48,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-
-
-		
+		}		
 
 
 	}

@@ -21,31 +21,38 @@
 
             $urlRouterProvider.otherwise('/home');
 
-            $stateProvider.state("home", {
+            $stateProvider
+            .state("home", {
                 url: "/home",
                 controller: "homeCtrl",
                 templateUrl: "views/home.html"
-            });
+            })
 
-            $stateProvider.state("newcollection", {
+            .state("newcollection", {
                 url: "/newcollection",
                 controller: "newCollectionCtrl",
                 templateUrl: "views/newcollection.html"
-            });
+            })
 
-            $stateProvider.state("addcategory", {
+            .state("addcategory", {
                 url: "/addcategory",
                 controller: "addCategoryCtrl",
                 templateUrl: "views/addcategory.html"
-            });
+            })
 
-            $stateProvider.state("additem", {
+            .state("additem", {
                 url: "/additem",
                 controller: "addItemCtrl",
                 templateUrl: "views/additem.html"
-            });
+            })
 
-            $stateProvider.state("browse", {
+            .state("viewitem", {
+                url: "/viewitem/:itemid",
+                controller: "itemCtrl",
+                templateUrl: "views/viewitem.html"
+            })
+
+            .state("browse", {
                 url: "/browse",
                 controller: "browseCtrl",
                 templateUrl: "views/browsecollection.html"
@@ -123,7 +130,6 @@ angular
 
 
 
-
 	}
 
 
@@ -154,7 +160,8 @@ angular
 				newitem.name = item.name;
 				newitem.desc = item.desc;
 				//newitem.picture = item.picture;
-				newitem.category = item.category.category_id;				
+				newitem.category = item.category.category_id;
+				newitem.collection = item.collection.collection_id;				
 				// same problem here as the category view
 
 				Upload.upload({
@@ -163,24 +170,17 @@ angular
 				      data:{file:$scope.item.picture, otherinfo:item}
 				    })
 					.then(function (resp) {
+						$scope.itemForm.$setPristine();
+						$scope.item = null;
+						alert(resp.data);			
 			            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
 			        }, function (resp) {
 			            console.log('Error status: ' + resp.status);
 			        }, function (evt) {
 			            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 			            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-			        });
-			    	
+			        });			    	
 
-				/* ioService.addItem(newitem)
-				.then(function(response){
-					$scope.itemForm.$setPristine();
-					$scope.item = null;
-					alert(response.data);					
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	}); */ 
 			}
 
 		};
@@ -266,10 +266,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-
-
-		
+		}		
 
 
 	}
@@ -331,6 +328,9 @@ angular
 
 		};
 
+
+		
+
 		function updateCollection(){
 			ioService.updateList('collection')
 				.then(function(response){
@@ -343,6 +343,69 @@ angular
 
 
 
+
+
+
+
+	}
+
+
+})();	
+
+
+(function(){
+	'use strict';
+
+
+angular
+	.module('collectionApp')
+	.controller('itemCtrl', itemCtrl);
+
+	itemCtrl.$inject = ['$scope', 'ioService', 'config', '$stateParams', '$q'];
+
+	function itemCtrl ($scope, ioService, config, $stateParams, $q){
+
+		console.log('Params: '+ $stateParams.itemid);
+
+		$scope.category = [];
+		$scope.collection = [];
+		$scope.item = [];
+		$scope.uploadpath = config.uploadpath;
+		getItem($stateParams.itemid);
+
+	
+		function getItem(id){
+			ioService.updateList('item', id)
+				.then(function(item)
+				{
+					$scope.item = item.data;
+					getCollection($scope.item[0].collection_id);
+												
+				});
+		}
+
+		function getCollection(collectionid){
+					
+			ioService.updateList('collection',collectionid)
+				.then(function(collection)
+				{
+					$scope.collection = collection.data;
+					$scope.item[0].collection_name = $scope.collection[0].collection_name;
+					getCategory($scope.item[0].category_id);
+				});
+		}
+
+		function getCategory(categoryid){
+
+				ioService.updateList('category', categoryid)
+					.then(function(category)
+					{
+						$scope.category = category.data;
+						$scope.item[0].category_name = $scope.category[0].category_name;
+					});
+		};
+
+			
 
 
 	}
@@ -362,8 +425,9 @@ angular
 
 
 	factory.addCollection = function(collection){
-		console.log(collection);
+		
 		return $http.post('backend/include.php?type=col',collection);
+		
 	};
 
 	factory.addCategory = function(category){
@@ -376,22 +440,34 @@ angular
 		return $http.post('backend/include.php?type=item',item);
 	}; */
 
-	factory.singleContact = function(id){
-		
-		return $http.get('backend/getcontact.php?id=' + id);
-	
-	};
 
-	factory.updateList = function(type){
+	factory.updateList = function(type, id){
 		switch (type) {
 			case 'collection':
-				return $http.get('backend/updatelist.php?type=col');
+				if(id){
+					console.log('return collection :'+id);
+					return $http.get('backend/updatelist.php?type=col&id='+id);
+				}else{
+					return $http.get('backend/updatelist.php?type=col');
+				}
 			break;
+
 			case 'category':
-				return $http.get('backend/updatelist.php?type=cat');
+				if(id){
+					return $http.get('backend/updatelist.php?type=cat&id='+id);
+				}else{
+					return $http.get('backend/updatelist.php?type=cat');
+				}
 			break;
+
 			case 'item':
-				return $http.get('backend/updatelist.php?type=item');
+				if(id){
+					console.log('return Item :'+id);
+					return $http.get('backend/updatelist.php?type=item&id='+id);
+				}else{
+					console.log('return all Items');
+					return $http.get('backend/updatelist.php?type=item');
+				}
 			break;
 
 		}

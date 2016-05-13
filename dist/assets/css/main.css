@@ -3401,6 +3401,7 @@ footer {
   color: black;
   margin-top: 20px;
   padding: 20px 0;
+  height: 80px;
 }
 
 .clearfix:before, .clearfix:after {

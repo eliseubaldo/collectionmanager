@@ -1,0 +1,35 @@
+<div class="container">
+	<h2>View Item</h2>
+
+	
+		
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Collection Name</th>
+				<th>Item name</th>
+				<th>Item Description</th>
+				<th>Category Name</th>
+				<th>Item pic</th>
+				<th>Item Collec ID</th>
+				<th>Item Cat ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr> 
+				<td>{{item[0].collection_name}}</td>
+				<td>{{item[0].item_name}}</td>
+				<td>{{item[0].item_description}}</td>
+				<td>{{item[0].category_name}}</td>
+				<td><img ng-src="{{ uploadpath + item[0].collection_name +'/' + item[0].item_picture}}" alt="" width="20" height="20"></td>
+				<td>{{item[0].collection_id}}</td>
+				<td>{{item[0].category_id}}</td>
+
+			</tr>
+		</tbody>
+	</table>
+	
+
+	
+</div>
+

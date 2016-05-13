@@ -9,8 +9,9 @@ angular
 
 
 	factory.addCollection = function(collection){
-		console.log(collection);
+		
 		return $http.post('backend/include.php?type=col',collection);
+		
 	};
 
 	factory.addCategory = function(category){
@@ -23,22 +24,34 @@ angular
 		return $http.post('backend/include.php?type=item',item);
 	}; */
 
-	factory.singleContact = function(id){
-		
-		return $http.get('backend/getcontact.php?id=' + id);
-	
-	};
 
-	factory.updateList = function(type){
+	factory.updateList = function(type, id){
 		switch (type) {
 			case 'collection':
-				return $http.get('backend/updatelist.php?type=col');
+				if(id){
+					console.log('return collection :'+id);
+					return $http.get('backend/updatelist.php?type=col&id='+id);
+				}else{
+					return $http.get('backend/updatelist.php?type=col');
+				}
 			break;
+
 			case 'category':
-				return $http.get('backend/updatelist.php?type=cat');
+				if(id){
+					return $http.get('backend/updatelist.php?type=cat&id='+id);
+				}else{
+					return $http.get('backend/updatelist.php?type=cat');
+				}
 			break;
+
 			case 'item':
-				return $http.get('backend/updatelist.php?type=item');
+				if(id){
+					console.log('return Item :'+id);
+					return $http.get('backend/updatelist.php?type=item&id='+id);
+				}else{
+					console.log('return all Items');
+					return $http.get('backend/updatelist.php?type=item');
+				}
 			break;
 
 		}

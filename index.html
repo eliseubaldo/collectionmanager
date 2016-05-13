@@ -5,35 +5,28 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Collection Manager</title>
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../node_modules/angular-material/angular-material.min.css">
 	<link rel="stylesheet" href="assets/css/main.min.css">
 </head>
-<body ng-app="collectionApp">
+<body ng-app="collectionApp" layout="column">
 
-	<header>
-		<nav class="navbar navbar-default">
-		  <div class="container">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      
-		      <a class="navbar-brand" href="#"><img src="assets/images/app-logo.png" class="img-responsive" alt=""></a>
-		    </div>
-
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">
-		      	<li><a href="#newcollection" class="btn">Add Collection</a></li>
-		        <li><a href="#addcategory" class="btn">Add Category</a></li>
-		        <li><a href="#additem" class="btn">Add Item</a></li>
-		        <li><a href="#browse" class="btn">Browse</a></li>
-		      </ul>      
-		     
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-		</nav>
+	<header flex="none">
+		<md-toolbar layout="row" layout-padding>
+			      
+			      <a class="navbar-brand" href="#"><img src="assets/images/app-logo.png" class="img-responsive" alt=""></a>
+			    
+			      <ul class="nav navbar-nav">
+			      	<li><a ui-sref="newcollection" class="btn">Add Collection</a></li>
+			        <li><a ui-sref="addcategory" class="btn">Add Category</a></li>
+			        <li><a ui-sref="additem" class="btn">Add Item</a></li>
+			        <li><a ui-sref="browse" class="btn">Browse</a></li>
+			    </ul>
+			 
+		</md-toolbar>
 	</header><!-- /header -->
 
 
-	 <main>
+	 <main flex layout="row" layout-align="center start">
     		<!-- Views -->
     		<div ui-view="">
     			
@@ -46,7 +39,7 @@
 
 
 	
-	<footer>
+	<footer flex="none" layout="row" layout-align="center end">
 		<div class="container">
 			Footer
 		</div>

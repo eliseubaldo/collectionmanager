@@ -8,10 +8,15 @@
 
 	$col_name = $obj['name'];
 
-
+						//UPDATE table1 SET col_a='k1', col_b='foo' WHERE key_col='1';
 	switch ($t) {
 	    case "col":
-	        $sql = "INSERT INTO collection (collection_id, collection_name) VALUES (NULL, '" .  $obj['name'] ."')";
+	    	if($obj['collection_id']){
+	        	$sql = "UPDATE collection SET collection_name='". $obj['collection_name'] . "' WHERE collection_id=" . $obj['collection_id'] ."";
+			} else {
+				$sql = "INSERT INTO collection (collection_id, collection_name) VALUES (NULL, '" .  $obj['name'] ."')";
+			}
+
 
 	        if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
@@ -47,7 +52,7 @@
 			$destination = $npath .'/' . $new_image_name;
 			move_uploaded_file( $_FILES['file']['tmp_name'] , $destination );
 
-			$sql = "INSERT INTO item (item_id, category_id, item_description, item_name, item_picture) VALUES (NULL, '" . $item['category']['category_id'] ."', '" . $item['desc'] ."', '" . $item['name'] ."', '" . $new_image_name ."' )";
+			$sql = "INSERT INTO item (item_id, collection_id, category_id, item_description, item_name, item_picture) VALUES (NULL, '" . $item['collection']['collection_id'] ."','" . $item['category']['category_id'] ."', '" . $item['desc'] ."', '" . $item['name'] ."', '" . $new_image_name ."' )";
 
 	        if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";

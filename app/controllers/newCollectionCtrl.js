@@ -32,6 +32,9 @@ angular
 
 		};
 
+
+		
+
 		function updateCollection(){
 			ioService.updateList('collection')
 				.then(function(response){
@@ -41,6 +44,8 @@ angular
                 	alert('Error:', response.status, response.data);
             	});
 		}
+
+
 
 
 
