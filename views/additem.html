@@ -1,31 +1,79 @@
 <div class="container">
-	<h2>Add Item</h2>
+	<div layout="row">
+		<div flex-sm="100" flex-gt-sm="80">
+			<h2>Add Item</h2>
+		</div>	
+	</div>
+	
 
 	<form name="itemForm" ng-submit="submitForm(item)" accept-charset="utf-8">
-		<label for="">Select Collection</label>
-		<select name="repeatSelect" id="rr" ng-model="item.collection" required ng-options="collection.collection_name for collection in collectionList">
-    	</select>
 
-    	<label>Select Category</label>    	
-		<select name="repeatSelect" id="rr" ng-model="item.category" required ng-options="category.category_name for category in (categoryList | filter: {collection_id: item.collection.collection_id })">
-    	</select>
+		<div layout="row">
+			<div flex-sm="50" flex-gt-sm="50">
+				<md-input-container class="md-block flex-gt-sm">
+					<label for="">Select Collection</label>
+					<md-select ng-model="item.collection" required>
+					          <md-option ng-repeat="collection in collectionList" value="{{collection.collection_id}}">{{collection.collection_name}}</md-option>
+					        </md-select>
+					</md-input-container>
+			</div>
+		
+			<div flex-sm="50" flex-gt-sm="50">
+				<md-input-container class="md-block flex-gt-sm">
+					<label>Select category</label>	
+					<md-select ng-model="item.category" required>
+					          <md-option ng-repeat="category in categoryList | filter: {collection_id: item.collection}" value="{{category.category_id}}">{{category.category_name}}</md-option>
+					        </md-select>
+					</md-input-container>
+			</div>
+		</div>
 
-		<p><label for="">Item Name</label>	
-				<input type="text" ng-model="item.name" required></p>
 
-		<p><label for="">Item Desc</label>	
-				<input type="text" ng-model="item.desc"></p>
+		<div layout="row">
+			<div flex-sm="50" flex-gt-sm="50">
+				<md-input-container class="md-block flex-gt-sm">
+							<label>Item Name</label>	
+							<input type="text" ng-model="item.name" required>
+							<div ng-messages="item.name.$error">
+				      			<div ng-message="required">a Name is required!</div>
+				    		</div>
+						</md-input-container>
+				</md-input-container>
+			</div>
 
-		<p><label for="">Item Pic</label>	
-			<input type="file" ngf-select ng-model="item.picture" name="file"    
+			<div flex-sm="50" flex-gt-sm="50">
+				<md-input-container class="md-block flex-gt-sm">
+							<label>Item Description</label>	
+							<input type="text" ng-model="item.desc">
+						</md-input-container>
+				</md-input-container>
+			</div>
+		</div>
+
+		<div layout="row">
+			<div flex-sm="50" flex-gt-sm="50">		
+
+			<label for="">Item Picture</label>	
+			<input type="file" id="fileInput" ngf-select ng-model="item.picture" name="file"  
              accept="image/*" ngf-max-size="2MB" required
-             ngf-model-invalid="errorFile">
+             ngf-model-invalid="errorFile" class="ng-hide">
+             <md-button id="uploadButton" class="md-raised md-primary"> Choose File</md-button>
+         	</div>
 
-              <img ng-show="myForm.file.$valid" ngf-thumbnail="item.picture" class="thumb"> <button ng-click="item.picture = null" ng-show="item.picture">Remove</button>
+         	<div flex-sm="50" flex-gt-sm="50">
+              <img ng-show="myForm.file.$valid" ngf-thumbnail="item.picture" class="thumb"> 
+              <md-button class="md-raised md-primary" ng-click="item.picture = null" ng-show="item.picture">Remove</md-button>
+             </div>
 
-		</p>
+		</div>
 
-		<p><button type="submit">Save</button></p>
+		<div layout="row">
+			<div flex-sm="50" flex-gt-sm="50" layout-align="end center">
+				<md-button class="md-raised md-primary" type="submit" ng-disabled="itemForm.$invalid">Save</md-button>
+			</div>	
+		</div>
+
+		
 	</form>
 
 	
