@@ -6,35 +6,49 @@ angular
 	.module('collectionApp')
 	.controller('addItemCtrl', addItemCtrl);
 
-	addItemCtrl.$inject = ['$scope', 'ioService', 'Upload', '$timeout'];
+	addItemCtrl.$inject = ['$scope', 'ioService', 'Upload', '$timeout','$mdToast', '$animate'];
 
-	function addItemCtrl ($scope, ioService, Upload, $timeout){
+	function addItemCtrl ($scope, ioService, Upload, $timeout, $mdToast, $animate){
 
 		$scope.categoryList = [];
-		$scope.collectionList = [];		
+		$scope.collectionList = [];
+
+		//Upload button material style
+		var input = document.getElementById("fileInput");
+		var button = document.getElementById("uploadButton");	   
+	    button.addEventListener("click", function(){
+	    	input.click();
+	  	});
+
+		$scope.toastPosition = {
+                bottom: false,
+                top: true,
+                left: false,
+                right: true
+        };		
 
 		getCollections();
 		getCategory();
 
-		$scope.submitForm = function(item){
-			if($scope.itemForm.$valid){
-				var newitem = {};
-				newitem.name = item.name;
-				newitem.desc = item.desc;
-				//newitem.picture = item.picture;
-				newitem.category = item.category.category_id;
-				newitem.collection = item.collection.collection_id;				
-				// same problem here as the category view
 
+		$scope.getToastPosition = function() {
+                return Object.keys($scope.toastPosition)
+                    .filter(function(pos) { return $scope.toastPosition[pos]; })
+                    .join(' ');
+        };
+
+		$scope.submitForm = function(item){
+			if($scope.itemForm.$valid){				
 				Upload.upload({
 				      url: 'backend/include.php?type=item',
 				      method: 'POST',
 				      data:{file:$scope.item.picture, otherinfo:item}
 				    })
 					.then(function (resp) {
+						$mdToast.show( $mdToast.simple().content('Item '+ item.name + ' added !').position($scope.getToastPosition()).hideDelay(3000) );
 						$scope.itemForm.$setPristine();
 						$scope.item = null;
-						alert(resp.data);			
+								
 			            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
 			        }, function (resp) {
 			            console.log('Error status: ' + resp.status);

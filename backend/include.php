@@ -52,7 +52,7 @@
 			$destination = $npath .'/' . $new_image_name;
 			move_uploaded_file( $_FILES['file']['tmp_name'] , $destination );
 
-			$sql = "INSERT INTO item (item_id, collection_id, category_id, item_description, item_name, item_picture) VALUES (NULL, '" . $item['collection']['collection_id'] ."','" . $item['category']['category_id'] ."', '" . $item['desc'] ."', '" . $item['name'] ."', '" . $new_image_name ."' )";
+			$sql = "INSERT INTO item (item_id, collection_id, category_id, item_description, item_name, item_picture) VALUES (NULL, '" . $item['collection'] ."','" . $item['category'] ."', '" . $item['desc'] ."', '" . $item['name'] ."', '" . $new_image_name ."' )";
 
 	        if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";

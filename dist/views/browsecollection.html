@@ -1,22 +1,38 @@
 <div class="container">
-	<h2>View Collection</h2>
+	<div layout="row">
+		<div flex-sm="100" flex-gt-sm="80">
+			<h2>Browse Collection</h2>
+		</div>	
+	</div>
 
 	
- 	<label for="">Select Collection</label>
-	<select name="selectCollection" id="scol" ng-model="collection" ng-options="collection.collection_name for collection in collectionList">
-    </select>
-
-    <label>Select Category</label>    	
-	<select name="selectCategory" id="scat" ng-model="category" ng-options="category.category_name for category in (categoryList | filter: {collection_id: collection.collection_id })">
-    </select>
+ 	<div layout="row">
+			<div flex-sm="50" flex-gt-sm="50">
+				<md-input-container class="md-block flex-gt-sm">
+					<label for="">Select Collection</label>
+					<md-select ng-model="collection" required>
+					          <md-option ng-repeat="collection in collectionList" value="{{collection.collection_id}}">{{collection.collection_name}}</md-option>
+					        </md-select>
+					</md-input-container>
+			</div>
+		
+			<div flex-sm="50" flex-gt-sm="50">
+				<md-input-container class="md-block flex-gt-sm">
+					<label>Select category</label>	
+					<md-select ng-model="category" required ng-click="setCategory(category)">
+					          <md-option ng-repeat="category in categoryList | filter: {collection_id: collection}" value="{{category}}">{{category.category_name}}</md-option>
+					        </md-select>
+					</md-input-container>
+			</div>
+	</div>
 
 
 
 
 	<hr>
 
-	<h4>Items in <strong>{{category.category_name}} </strong> category</h4>
-	<table class="table" ng-show="category.category_id">
+	<h4>Items in <strong>{{category}} </strong> category</h4>
+	<table class="table" ng-show="category">
 		<thead>
 			<tr>
 				<th>category year / Name</th>
@@ -29,10 +45,10 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in itemList | filter:{category_id: category.category_id}:true | orderBy: 'item_name'">
-				<td>{{category.category_id}} - {{category.category_name}}</td>
+				<td>{{category.category_year}}</td>
 				<td><a ui-sref="viewitem({itemid:item.item_id})">{{item.item_name}}</a></td>
 				<td>{{item.item_description}}</td>
-				<td>{{item.category_id}}</td>
+				<td>{{category.category_name}}</td>
 				<td><img ng-src="{{ uploadpath + collection.collection_name +'/'+item.item_picture}}" alt="" width="50" height="50"></td>
 				<td>{{item.item_id}}</td>
 			</tr>

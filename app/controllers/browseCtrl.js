@@ -14,10 +14,16 @@ angular
 		$scope.collectionList = [];
 		$scope.itemList = [];
 		$scope.uploadpath = config.uploadpath;		
+		$scope.currCategory = [];
 
 		getCollections();
 		getCategory();
 		getItems();
+
+		$scope.setCategory = function(category){
+			$scope.currCategory[0] = category;
+			console.log($scope.currCategory[0].category_name);
+		}
 
 		
 		function getCategory(){
