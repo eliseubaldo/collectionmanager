@@ -11,24 +11,36 @@
 <body ng-app="collectionApp" layout="column" layout-fill>
 
 	<header flex="none">
-		<md-toolbar layout="row" layout-padding>
-			<div class="container">
-			      
-			      <a class="navbar-brand" href="#"><img src="assets/images/app-logo.png" class="img-responsive" alt=""></a>
-			    
-			      <ul class="nav navbar-nav">
-			      	<li><a ui-sref="newcollection" class="btn">Add Collection</a></li>
-			        <li><a ui-sref="addcategory" class="btn">Add Category</a></li>
-			        <li><a ui-sref="additem" class="btn">Add Item</a></li>
-			        <li><a ui-sref="browse" class="btn">Browse</a></li>
-			    </ul>
-			</div>
-			 
-		</md-toolbar>
+		<div class="container">
+		<md-toolbar>
+	      <div class="md-toolbar-tools">
+	        
+	        <div class="logo"><img src="assets/images/raccoon-only.svg" class="img-responsive" alt="">	</div>
+	        
+	        <h2>
+	          <span>Collection Manager</span>
+	        </h2>
+	        <div flex></div>
+	        <md-button class="md-raised" aria-label="Add Collection" ui-sref="newcollection">
+	          Collections
+	        </md-button>
+	        <md-button class="md-raised" aria-label="Add Category" ui-sref="addcategory" >
+	         Categories
+	        </md-button>
+	        <md-button class="md-raised" aria-label="Add Item" ui-sref="additem" >
+	         Add Item
+	        </md-button>
+	        <md-button class="md-raised" aria-label="Browse" ui-sref="browse" >
+	         Browse
+	        </md-button>
+	        
+	      </div>
+	    </md-toolbar>
+		</div>
 	</header><!-- /header -->
 
 
-	 <main flex="100" layout="row" layout-align="center start">
+	 <main flex="grow" layout="row" layout-align="center start">
     		<!-- Views -->
     		<div ui-view="" flex>
     			
@@ -38,7 +50,7 @@
 
 
 	
-	<footer layout="row" layout-align="center end">
+	<footer flex="nogrow" layout="row" layout-align="center end">
 		<div class="container">
 			Footer
 		</div>

@@ -1,8 +1,11 @@
 <div class="container">
 	<div layout="row">
-		<div flex-sm="100" flex-gt-sm="80">
-			<h2>Collection</h2>
-		</div>	
+		<div flex-sm="60" flex-gt-sm="80">
+			<h2>Collections</h2>
+		</div>
+		<div flex-sm="20" flex-gt-sm="20">
+			<md-button class="md-raised md-accent">Add new collection</md-button>
+		</div>		
 	</div>
 	
 	
@@ -27,16 +30,13 @@
 		</div>
 	</div>
 		
+	<md-divider></md-divider>
 	
-	<hr/>
-	
-		<h4>Collections available</h4>
-		
 		<div flex-sm="100" flex-gt-sm="80">
 			<md-list>
 			  <md-list-item class="md-1-line" ng-repeat="collection in collectionList">
 			    <div class="md-list-item-inner">
-			    	<img alt="{{ collection.collection_name }}" class="md-avatar" />
+			    	 <img src="assets/images/acorn-icon.svg" class="img-responsive md-avatar" alt="">
 			      <p>{{collection.collection_name}}</p>	      
 			    </div>
 			  </md-list-item>

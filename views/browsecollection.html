@@ -19,7 +19,7 @@
 			<div flex-sm="50" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 					<label>Select category</label>	
-					<md-select ng-model="category" required ng-click="setCategory(category)">
+					<md-select ng-model="category" required ng-change="setCategory(category)">
 					          <md-option ng-repeat="category in categoryList | filter: {collection_id: collection}" value="{{category}}">{{category.category_name}}</md-option>
 					        </md-select>
 					</md-input-container>
@@ -27,34 +27,30 @@
 	</div>
 
 
-
-
-	<hr>
-
-	<h4>Items in <strong>{{category}} </strong> category</h4>
-	<table class="table" ng-show="category">
-		<thead>
-			<tr>
-				<th>category year / Name</th>
-				<th>Item name</th>
-				<th>Item Desc</th>
-				<th>Category Id</th>
-				<th>Item pic</th>
-				<th>Item ID</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in itemList | filter:{category_id: category.category_id}:true | orderBy: 'item_name'">
-				<td>{{category.category_year}}</td>
-				<td><a ui-sref="viewitem({itemid:item.item_id})">{{item.item_name}}</a></td>
-				<td>{{item.item_description}}</td>
-				<td>{{category.category_name}}</td>
-				<td><img ng-src="{{ uploadpath + collection.collection_name +'/'+item.item_picture}}" alt="" width="50" height="50"></td>
-				<td>{{item.item_id}}</td>
-			</tr>
-		</tbody>
-	</table>
-
+	<div ng-if="currentCategory.category_id">
+		
+	
+		<h4>Items in <strong>{{currentCategory.category_name}} </strong></h4>
+		<table class="table" ng-show="category">
+			<thead>
+				<tr>
+					<th>Category year</th>
+					<th>Item name</th>
+					<th>Item Desc</th>					
+					<th>Item pic</th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in itemList | filter:{category_id: currentCategory.category_id}:true | orderBy: 'item_name'">
+					<td>{{currentCategory.category_year}}</td>
+					<td><a ui-sref="viewitem({itemid:item.item_id})">{{item.item_name}}</a></td>
+					<td>{{item.item_description}}</td>
+					<td><img ng-src="{{ uploadpath + collection.collection_name +'/'+item.item_picture}}" alt="" width="50" height="50"></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	
 
 
