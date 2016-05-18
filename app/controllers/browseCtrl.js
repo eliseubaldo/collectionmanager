@@ -14,12 +14,18 @@ angular
 		$scope.collectionList = [];
 		$scope.itemList = [];
 		$scope.currentCategory = {};
+		$scope.currCollection = {};
 		$scope.uploadpath = config.uploadpath;		
 		
 
 		getCollections();
 		getCategory();
 		getItems();
+
+		$scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		}
 
 		$scope.setCategory = function(category){
 			var str = JSON.parse(category);

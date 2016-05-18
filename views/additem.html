@@ -12,8 +12,8 @@
 			<div flex-sm="50" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 					<label for="">Select Collection</label>
-					<md-select ng-model="item.collection" required>
-					          <md-option ng-repeat="collection in collectionList" value="{{collection.collection_id}}">{{collection.collection_name}}</md-option>
+					<md-select ng-model="collection" required ng-change="setCollection(collection)">
+					          <md-option ng-repeat="collection in collectionList" value="{{collection}}">{{collection.collection_name}}</md-option>
 					        </md-select>
 					</md-input-container>
 			</div>
@@ -22,7 +22,7 @@
 				<md-input-container class="md-block flex-gt-sm">
 					<label>Select category</label>	
 					<md-select ng-model="item.category" required>
-					          <md-option ng-repeat="category in categoryList | filter: {collection_id: item.collection}" value="{{category.category_id}}">{{category.category_name}}</md-option>
+					          <md-option ng-repeat="category in categoryList | filter: {collection_id: currCollection.collection_id}" value="{{category.category_id}}">{{category.category_name}}</md-option>
 					        </md-select>
 					</md-input-container>
 			</div>
@@ -30,7 +30,7 @@
 
 
 		<div layout="row">
-			<div flex-sm="50" flex-gt-sm="50">
+			<div flex-sm="50" flex-gt-sm="50"> 
 				<md-input-container class="md-block flex-gt-sm">
 							<label>Item Name</label>	
 							<input type="text" ng-model="item.name" required>
@@ -67,8 +67,8 @@
 
 		</div>
 
-		<div layout="row">
-			<div flex-sm="50" flex-gt-sm="50" layout-align="end center">
+		<div layout="row" layout-align="start center" class="topSpace">
+			<div flex-sm="50" flex-gt-sm="50" >
 				<md-button class="md-raised md-primary" type="submit" ng-disabled="itemForm.$invalid">Save</md-button>
 			</div>	
 		</div>

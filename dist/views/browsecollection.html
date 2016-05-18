@@ -10,8 +10,8 @@
 			<div flex-sm="50" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 					<label for="">Select Collection</label>
-					<md-select ng-model="collection" required>
-					          <md-option ng-repeat="collection in collectionList" value="{{collection.collection_id}}">{{collection.collection_name}}</md-option>
+					<md-select ng-model="collection" required ng-change="setCollection(collection)">
+					          <md-option ng-repeat="collection in collectionList" value="{{collection}}">{{collection.collection_name}}</md-option>
 					        </md-select>
 					</md-input-container>
 			</div>
@@ -20,7 +20,7 @@
 				<md-input-container class="md-block flex-gt-sm">
 					<label>Select category</label>	
 					<md-select ng-model="category" required ng-change="setCategory(category)">
-					          <md-option ng-repeat="category in categoryList | filter: {collection_id: collection}" value="{{category}}">{{category.category_name}}</md-option>
+					          <md-option ng-repeat="category in categoryList | filter: {collection_id: currCollection.collection_id}" value="{{category}}">{{category.category_name}}</md-option>
 					        </md-select>
 					</md-input-container>
 			</div>
@@ -45,7 +45,7 @@
 					<td>{{currentCategory.category_year}}</td>
 					<td><a ui-sref="viewitem({itemid:item.item_id})">{{item.item_name}}</a></td>
 					<td>{{item.item_description}}</td>
-					<td><img ng-src="{{ uploadpath + collection.collection_name +'/'+item.item_picture}}" alt="" width="50" height="50"></td>
+					<td><img ng-src="{{ uploadpath + currCollection.collection_name +'/'+item.item_picture}}" alt="" width="50" height="50"></td>
 					
 				</tr>
 			</tbody>

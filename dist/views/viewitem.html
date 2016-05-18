@@ -1,34 +1,31 @@
 <div class="container">
-	<h2>View Item</h2>
 
-	
+	<md-card>
+        <md-card-header>
+          <md-card-avatar> 
+          <img src="assets/images/acorn-icon.svg" class="img-responsive md-avatar" alt="">       
+          </md-card-avatar>
+          <md-card-header-text>
+            <span class="md-title">{{item[0].collection_name}}</span>
+             <span class="md-subhead">{{item[0].category_name}}</span>
+
+          </md-card-header-text>
+        </md-card-header>
+            <img ng-src="{{ uploadpath + item[0].collection_name +'/' + item[0].item_picture}}" alt="" width="20" height="20">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{item[0].item_name}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          
+				
+				<p>{{item[0].item_description}}</p>
+          
+        </md-card-content>
+      </md-card>
+
 		
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Collection Name</th>
-				<th>Item name</th>
-				<th>Item Description</th>
-				<th>Category Name</th>
-				<th>Item pic</th>
-				<th>Item Collec ID</th>
-				<th>Item Cat ID</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr> 
-				<td>{{item[0].collection_name}}</td>
-				<td>{{item[0].item_name}}</td>
-				<td>{{item[0].item_description}}</td>
-				<td>{{item[0].category_name}}</td>
-				<td><img ng-src="{{ uploadpath + item[0].collection_name +'/' + item[0].item_picture}}" alt="" width="20" height="20"></td>
-				<td>{{item[0].collection_id}}</td>
-				<td>{{item[0].category_id}}</td>
-
-			</tr>
-		</tbody>
-	</table>
-	
 
 	
 </div>

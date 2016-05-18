@@ -12,6 +12,7 @@ angular
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
+		$scope.currCollection = {};
 
 		//Upload button material style
 		var input = document.getElementById("fileInput");
@@ -30,6 +31,11 @@ angular
 		getCollections();
 		getCategory();
 
+		$scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		}
+
 
 		$scope.getToastPosition = function() {
                 return Object.keys($scope.toastPosition)
@@ -38,11 +44,18 @@ angular
         };
 
 		$scope.submitForm = function(item){
+			var collname = $scope.currCollection.collection_name;	
+			var collid = $scope.currCollection.collection_id;	
+			
+
+			console.log("collname:"+collname + " id:"+ collid );
+			
+			
 			if($scope.itemForm.$valid){				
 				Upload.upload({
 				      url: 'backend/include.php?type=item',
 				      method: 'POST',
-				      data:{file:$scope.item.picture, otherinfo:item}
+				      data:{file:$scope.item.picture, otherinfo:item, collName:collname, collId:collid}
 				    })
 					.then(function (resp) {
 						$mdToast.show( $mdToast.simple().content('Item '+ item.name + ' added !').position($scope.getToastPosition()).hideDelay(3000) );

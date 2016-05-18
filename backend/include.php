@@ -40,7 +40,10 @@
 	    case "item":
 	       	$filename = $_FILES['file']['name'];
 	    	$item = $_POST['otherinfo'];
-			$npath = '../uploads/'. $item['collection']['collection_name'];
+	    	$collname = $_POST['collName'];
+	    	$collid = $_POST['collId'];
+
+			$npath = '../uploads/'. $collname;
 			if(!is_dir($npath)){
 			    //Directory does not exist, so lets create it.
 			    mkdir($npath, 0777);
@@ -52,7 +55,7 @@
 			$destination = $npath .'/' . $new_image_name;
 			move_uploaded_file( $_FILES['file']['tmp_name'] , $destination );
 
-			$sql = "INSERT INTO item (item_id, collection_id, category_id, item_description, item_name, item_picture) VALUES (NULL, '" . $item['collection'] ."','" . $item['category'] ."', '" . $item['desc'] ."', '" . $item['name'] ."', '" . $new_image_name ."' )";
+			$sql = "INSERT INTO item (item_id, collection_id, category_id, item_description, item_name, item_picture) VALUES (NULL, '" . $collid ."','" . $item['category'] ."', '" . $item['desc'] ."', '" . $item['name'] ."', '" . $new_image_name ."' )";
 
 	        if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";

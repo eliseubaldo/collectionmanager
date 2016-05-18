@@ -77,15 +77,15 @@ angular
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
+		$scope.currCollection = {};
 
 		$scope.toastPosition = {
-                bottom: false,
-                top: true,
+                bottom: true,
+                top: false,
                 left: false,
                 right: true
         };
 
-		
 		getCollections();
 
 		updateCategory();
@@ -96,9 +96,16 @@ angular
                     .join(' ');
         };
 
+        $scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		}
+
+
 
 		$scope.submitForm = function(category){
-			console.log("submit:" +category);
+			category.collection = $scope.currCollection.collection_id;			
+			
 			if($scope.categoryForm.$valid){
 				
 				ioService.addCategory(category)
@@ -157,6 +164,7 @@ angular
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
+		$scope.currCollection = {};
 
 		//Upload button material style
 		var input = document.getElementById("fileInput");
@@ -175,6 +183,11 @@ angular
 		getCollections();
 		getCategory();
 
+		$scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		}
+
 
 		$scope.getToastPosition = function() {
                 return Object.keys($scope.toastPosition)
@@ -183,11 +196,18 @@ angular
         };
 
 		$scope.submitForm = function(item){
+			var collname = $scope.currCollection.collection_name;	
+			var collid = $scope.currCollection.collection_id;	
+			
+
+			console.log("collname:"+collname + " id:"+ collid );
+			
+			
 			if($scope.itemForm.$valid){				
 				Upload.upload({
 				      url: 'backend/include.php?type=item',
 				      method: 'POST',
-				      data:{file:$scope.item.picture, otherinfo:item}
+				      data:{file:$scope.item.picture, otherinfo:item, collName:collname, collId:collid}
 				    })
 					.then(function (resp) {
 						$mdToast.show( $mdToast.simple().content('Item '+ item.name + ' added !').position($scope.getToastPosition()).hideDelay(3000) );
@@ -253,12 +273,18 @@ angular
 		$scope.collectionList = [];
 		$scope.itemList = [];
 		$scope.currentCategory = {};
+		$scope.currCollection = {};
 		$scope.uploadpath = config.uploadpath;		
 		
 
 		getCollections();
 		getCategory();
 		getItems();
+
+		$scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		}
 
 		$scope.setCategory = function(category){
 			var str = JSON.parse(category);

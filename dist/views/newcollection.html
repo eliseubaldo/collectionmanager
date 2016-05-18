@@ -4,31 +4,37 @@
 			<h2>Collections</h2>
 		</div>
 		<div flex-sm="20" flex-gt-sm="20">
-			<md-button class="md-raised md-accent">Add new collection</md-button>
+			<md-button class="md-raised md-accent" ng-click="newitem=true">Add new collection</md-button>
 		</div>		
 	</div>
 	
 	
-	<div layout="row">
-		<div flex-sm="100" flex-gt-sm="80">
-			
-			<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
-				
-				<md-input-container class="md-block flex-gt-sm">
-					<label>Enter your collection name</label>	
-					<input type="text" ng-model="collection.name" required>
-					<div ng-messages="collection.name.$error">
-		      			<div ng-message="required">Collection is required!</div>
-		    		</div>
-				</md-input-container>
+		<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
 
-				<md-button class="md-raised md-primary" type="submit" ng-disabled="collectionForm.$invalid">Save</md-button>			
-				
-				
-			</form>
+			<div layout="row" ng-show="newitem">
+				<div flex-sm="40" flex-gt-sm="40">
 			
-		</div>
-	</div>
+			<md-input-container class="md-block">
+				<label>Enter your collection name</label>	
+				<input type="text" ng-model="collection.name" required>
+				<div ng-messages="collection.name.$error">
+	      			<div ng-message="required">Collection is required!</div>
+	    		</div>
+			</md-input-container>
+
+				</div>
+
+				<div flex-sm="40" flex-gt-sm="40">
+					<md-button class="md-raised md-primary" type="submit" ng-disabled="collectionForm.$invalid" ng-click="newitem = false">Save</md-button>			
+				</div>
+
+			</div>
+
+			
+			
+		</form>
+			
+		
 		
 	<md-divider></md-divider>
 	

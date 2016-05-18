@@ -1,8 +1,8 @@
 <div class="container">
 	<div layout="row">
-		<div flex-sm="100" flex-gt-sm="80">
-			<h2>Category</h2>
-		</div>	
+		<div flex-sm="60" flex-gt-sm="80">
+			<h2>Categories</h2>
+		</div>		
 	</div>
 
 
@@ -15,16 +15,19 @@
 					<div flex-sm="50" flex-gt-sm="50">
 						<md-input-container class="md-block flex-gt-sm">
 						  <label>Select Collection</label>
-					        <md-select ng-model="category.collection" required>
-					          <md-option ng-repeat="collection in collectionList" value="{{collection.collection_id}}">{{collection.collection_name}}</md-option>
+					        <md-select ng-model="collection" required ng-change="setCollection(collection)">
+					          <md-option ng-repeat="collection in collectionList" value="{{collection}}">{{collection.collection_name}}</md-option>
 					        </md-select>
 					     
 
 						</md-input-container>
 					</div>
+					<div flex-sm="20" flex-gt-sm="20" ng-show="currCollection.collection_id">
+						<md-button class="md-raised md-accent" ng-click="newitem = true">Add new category</md-button>
+					</div>		
 				</div>
 
-				<div layout="row">		
+				<div layout="row" ng-show="newitem"> 		
 					<div flex-sm="50" flex-gt-sm="50">
 						<md-input-container class="md-block flex-gt-sm">
 							<label>Enter category name</label>	
@@ -44,7 +47,7 @@
 					</div>		    	
 				</div>
 
-				<div layout="row">		
+				<div layout="row" ng-show="newitem">		
 					<div flex-sm="50" flex-gt-sm="50">
 						<md-button class="md-raised md-primary" type="submit" ng-disabled="categoryForm.$invalid">Save</md-button>	
 					</div>
@@ -54,9 +57,11 @@
 			</form>
 
 
-	<hr>
+	
 
-	<h4>Categories in <strong>{{category.name}} </strong> collection</h4>
+	<div ng-if="currCollection.collection_id" class="topSpace">
+
+		<h4>Categories in <strong>{{currCollection.collection_name}} </strong> collection</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -67,13 +72,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="category in categoryList | filter:{collection_id: category.collection} | orderBy: 'category_year'">
+			<tr ng-repeat="category in categoryList | filter:{collection_id: currCollection.collection_id} | orderBy: 'category_year'">
 				<td>{{category.category_year}} </td>
 				<td>{{category.category_name}} </td>
 				<td>{{category.category_id}} </td>
 			</tr>
 		</tbody>
 	</table>
+		
+	</div>
+	
 
 	
 

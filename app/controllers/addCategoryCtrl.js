@@ -12,15 +12,15 @@ angular
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
+		$scope.currCollection = {};
 
 		$scope.toastPosition = {
-                bottom: false,
-                top: true,
+                bottom: true,
+                top: false,
                 left: false,
                 right: true
         };
 
-		
 		getCollections();
 
 		updateCategory();
@@ -31,9 +31,16 @@ angular
                     .join(' ');
         };
 
+        $scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		}
+
+
 
 		$scope.submitForm = function(category){
-			console.log("submit:" +category);
+			category.collection = $scope.currCollection.collection_id;			
+			
 			if($scope.categoryForm.$valid){
 				
 				ioService.addCategory(category)
