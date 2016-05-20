@@ -18,23 +18,9 @@ angular
 		$scope.uploadpath = config.uploadpath;		
 		
 
-		getCollections();
-		getCategory();
-		getItems();
+		init();
 
-		$scope.setCollection = function(collection){
-			var str = JSON.parse(collection);
-			$scope.currCollection = str;
-		}
-
-		$scope.setCategory = function(category){
-			var str = JSON.parse(category);
-			$scope.currentCategory = str;
-			
-		}
-
-		
-		function getCategory(){
+		function init(){
 			ioService.updateList('category')
 				.then(function(response){
 					$scope.categoryList = response.data;
@@ -42,20 +28,16 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-
-		function getCollections(){
-			ioService.updateList('collection')
+		
+				ioService.updateList('collection')
 				.then(function(response){
 					$scope.collectionList = response.data;
 				})
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-
-		function getItems(){
-			ioService.updateList('item')
+			
+				ioService.updateList('item')
 				.then(function(response){
 					$scope.itemList = response.data;
 				})
@@ -63,6 +45,20 @@ angular
                 	alert('Error:', response.status, response.data);
             	});
 		}		
+
+
+		$scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		};
+
+		$scope.setCategory = function(category){
+			var str = JSON.parse(category);
+			$scope.currentCategory = str;
+			
+		};
+
+		
 
 
 	}

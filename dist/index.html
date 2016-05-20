@@ -10,6 +10,15 @@
 </head>
 <body ng-app="collectionApp" layout="column" layout-fill>
 
+	<!-- Loader -->
+	<div data-ng-if="loading" class="loader">
+		<div class="loading text-center">
+			<h4>Loading</h4>
+    		<img src="assets/images/loader.gif" alt="">
+    	</div>
+	</div>
+	<!-- end loader -->
+
 	<header flex="none">
 		<div class="container">
 		<md-toolbar>

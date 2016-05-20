@@ -19,12 +19,6 @@ angular
 		return $http.post('backend/include.php?type=cat',category);
 	};
 
-	/*factory.addItem = function(item){
-		console.log(item);
-		return $http.post('backend/include.php?type=item',item);
-	}; */
-
-
 	factory.updateList = function(type, id){
 		switch (type) {
 			case 'collection':

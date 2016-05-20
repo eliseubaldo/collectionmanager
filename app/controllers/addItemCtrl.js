@@ -28,13 +28,37 @@ angular
                 right: true
         };		
 
-		getCollections();
-		getCategory();
+		init();
+
+		function init(){
+
+			//populate category
+				ioService.updateList('category')
+				.then(function(response){
+					$scope.categoryList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+			//populate collection
+            	ioService.updateList('collection')
+				.then(function(response){
+					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
+		function getCollections(){
+			
+		}
+
 
 		$scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
 			$scope.currCollection = str;
-		}
+		};
 
 
 		$scope.getToastPosition = function() {
@@ -49,7 +73,7 @@ angular
 			
 
 			console.log("collname:"+collname + " id:"+ collid );
-			
+
 			
 			if($scope.itemForm.$valid){				
 				Upload.upload({
@@ -72,28 +96,7 @@ angular
 
 			}
 
-		};
-
-
-		function getCategory(){
-			ioService.updateList('category')
-				.then(function(response){
-					$scope.categoryList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
-
-		function getCollections(){
-			ioService.updateList('collection')
-				.then(function(response){
-					$scope.collectionList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
+		};	
 
 
 		

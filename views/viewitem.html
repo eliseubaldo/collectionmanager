@@ -1,29 +1,37 @@
 <div class="container">
 
-	<md-card>
-        <md-card-header>
-          <md-card-avatar> 
-          <img src="assets/images/acorn-icon.svg" class="img-responsive md-avatar" alt="">       
-          </md-card-avatar>
-          <md-card-header-text>
-            <span class="md-title">{{item[0].collection_name}}</span>
-             <span class="md-subhead">{{item[0].category_name}}</span>
+	<div layout="row">
+		<div flex-sm="100" flex-gt-sm="50">
+			
+			<md-card>
+		        <md-card-header>
+		          <md-card-avatar> 
+		          <img src="assets/images/acorn-icon.svg" class="img-responsive md-avatar" alt="">       
+		          </md-card-avatar>
+		          <md-card-header-text>
+		            <span class="md-title">{{item[0].collection_name}}</span>
+		             <span class="md-subhead">{{item[0].category_name}}</span>
 
-          </md-card-header-text>
-        </md-card-header>
-            <img ng-src="{{ uploadpath + item[0].collection_name +'/' + item[0].item_picture}}" alt="" width="20" height="20">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{item[0].item_name}}</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          
-				
-				<p>{{item[0].item_description}}</p>
-          
-        </md-card-content>
-      </md-card>
+		          </md-card-header-text>
+		        </md-card-header>
+		            <img ng-src="{{ uploadpath + item[0].collection_name +'/' + item[0].item_picture}}" alt="" width="20" height="20">
+		        <md-card-title>
+		          <md-card-title-text>
+		            <span class="md-headline">{{item[0].item_name}}</span>
+		          </md-card-title-text>
+		        </md-card-title>
+		        <md-card-content>
+		          
+						
+						<p>{{item[0].item_description}}</p>
+		          
+		        </md-card-content>
+		      </md-card>
+
+		</div>	
+	</div>
+
+	
 
 		
 

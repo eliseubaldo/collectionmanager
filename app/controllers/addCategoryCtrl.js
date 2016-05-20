@@ -21,9 +21,26 @@ angular
                 right: true
         };
 
-		getCollections();
+		init();
 
-		updateCategory();
+		function init(){
+			ioService.updateList('category')
+				.then(function(response){
+					$scope.categoryList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+
+            	ioService.updateList('collection')
+				.then(function(response){
+					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
 
         $scope.getToastPosition = function() {
                 return Object.keys($scope.toastPosition)
@@ -34,7 +51,7 @@ angular
         $scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
 			$scope.currCollection = str;
-		}
+		};
 
 
 
@@ -57,25 +74,6 @@ angular
 
 		};
 
-		function updateCategory(){
-			ioService.updateList('category')
-				.then(function(response){
-					$scope.categoryList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
-
-		function getCollections(){
-			ioService.updateList('collection')
-				.then(function(response){
-					$scope.collectionList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
 
 
 

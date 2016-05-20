@@ -17,7 +17,7 @@
 
     angular
         .module('collectionApp')
-        .config(function ($stateProvider,$urlRouterProvider) {
+        .config(function ($stateProvider,$urlRouterProvider, $httpProvider) {
 
             $urlRouterProvider.otherwise('/home');
 
@@ -57,6 +57,9 @@
                 controller: "browseCtrl",
                 templateUrl: "views/browsecollection.html"
             });
+
+            // Loader Interceptor
+            $httpProvider.interceptors.push('LoadingInterceptor');
           
         });       
     
@@ -86,9 +89,26 @@ angular
                 right: true
         };
 
-		getCollections();
+		init();
 
-		updateCategory();
+		function init(){
+			ioService.updateList('category')
+				.then(function(response){
+					$scope.categoryList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+
+            	ioService.updateList('collection')
+				.then(function(response){
+					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
 
         $scope.getToastPosition = function() {
                 return Object.keys($scope.toastPosition)
@@ -99,7 +119,7 @@ angular
         $scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
 			$scope.currCollection = str;
-		}
+		};
 
 
 
@@ -122,25 +142,6 @@ angular
 
 		};
 
-		function updateCategory(){
-			ioService.updateList('category')
-				.then(function(response){
-					$scope.categoryList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
-
-		function getCollections(){
-			ioService.updateList('collection')
-				.then(function(response){
-					$scope.collectionList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
 
 
 
@@ -180,13 +181,37 @@ angular
                 right: true
         };		
 
-		getCollections();
-		getCategory();
+		init();
+
+		function init(){
+
+			//populate category
+				ioService.updateList('category')
+				.then(function(response){
+					$scope.categoryList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+			//populate collection
+            	ioService.updateList('collection')
+				.then(function(response){
+					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
+		function getCollections(){
+			
+		}
+
 
 		$scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
 			$scope.currCollection = str;
-		}
+		};
 
 
 		$scope.getToastPosition = function() {
@@ -201,7 +226,7 @@ angular
 			
 
 			console.log("collname:"+collname + " id:"+ collid );
-			
+
 			
 			if($scope.itemForm.$valid){				
 				Upload.upload({
@@ -224,28 +249,7 @@ angular
 
 			}
 
-		};
-
-
-		function getCategory(){
-			ioService.updateList('category')
-				.then(function(response){
-					$scope.categoryList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
-
-		function getCollections(){
-			ioService.updateList('collection')
-				.then(function(response){
-					$scope.collectionList = response.data;
-				})
-				.catch(function (response) {
-                	alert('Error:', response.status, response.data);
-            	});
-		}
+		};	
 
 
 		
@@ -277,23 +281,9 @@ angular
 		$scope.uploadpath = config.uploadpath;		
 		
 
-		getCollections();
-		getCategory();
-		getItems();
+		init();
 
-		$scope.setCollection = function(collection){
-			var str = JSON.parse(collection);
-			$scope.currCollection = str;
-		}
-
-		$scope.setCategory = function(category){
-			var str = JSON.parse(category);
-			$scope.currentCategory = str;
-			
-		}
-
-		
-		function getCategory(){
+		function init(){
 			ioService.updateList('category')
 				.then(function(response){
 					$scope.categoryList = response.data;
@@ -301,20 +291,16 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-
-		function getCollections(){
-			ioService.updateList('collection')
+		
+				ioService.updateList('collection')
 				.then(function(response){
 					$scope.collectionList = response.data;
 				})
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-
-		function getItems(){
-			ioService.updateList('item')
+			
+				ioService.updateList('item')
 				.then(function(response){
 					$scope.itemList = response.data;
 				})
@@ -322,6 +308,20 @@ angular
                 	alert('Error:', response.status, response.data);
             	});
 		}		
+
+
+		$scope.setCollection = function(collection){
+			var str = JSON.parse(collection);
+			$scope.currCollection = str;
+		};
+
+		$scope.setCategory = function(category){
+			var str = JSON.parse(category);
+			$scope.currentCategory = str;
+			
+		};
+
+		
 
 
 	}
@@ -394,10 +394,7 @@ angular
             	}); 
 			}
 
-		};
-
-
-		
+		};		
 
 		function updateCollection(){
 			ioService.updateList('collection')
@@ -439,39 +436,49 @@ angular
 		$scope.collection = [];
 		$scope.item = [];
 		$scope.uploadpath = config.uploadpath;
+
 		getItem($stateParams.itemid);
 
 	
 		function getItem(id){
 			ioService.updateList('item', id)
-				.then(function(item)
+				.then(function(response)
 				{
-					$scope.item = item.data;
+					$scope.item = response.data;
 					getCollection($scope.item[0].collection_id);
 												
-				});
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
 		}
 
 		function getCollection(collectionid){
 					
 			ioService.updateList('collection',collectionid)
-				.then(function(collection)
+				.then(function(response)
 				{
-					$scope.collection = collection.data;
+					$scope.collection = response.data;
 					$scope.item[0].collection_name = $scope.collection[0].collection_name;
 					getCategory($scope.item[0].category_id);
-				});
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
 		}
 
 		function getCategory(categoryid){
 
 				ioService.updateList('category', categoryid)
-					.then(function(category)
+					.then(function(response)
 					{
-						$scope.category = category.data;
+						$scope.category = response.data;
 						$scope.item[0].category_name = $scope.category[0].category_name;
-					});
-		};
+					})
+					.catch(function (response) {
+                		alert('Error:', response.status, response.data);
+            		});
+		}
 
 			
 
@@ -502,12 +509,6 @@ angular
 		console.log(category);
 		return $http.post('backend/include.php?type=cat',category);
 	};
-
-	/*factory.addItem = function(item){
-		console.log(item);
-		return $http.post('backend/include.php?type=item',item);
-	}; */
-
 
 	factory.updateList = function(type, id){
 		switch (type) {
@@ -545,5 +546,52 @@ angular
 	return factory;
 
 });
+
+})();
+(function(){
+    'use strict';
+
+    // Loader Service
+angular
+    .module('collectionApp')
+    .service('LoadingInterceptor', ['$q', '$rootScope', '$log', 
+    function ($q, $rootScope, $log) {
+        
+        var xhrCreations = 0;
+        var xhrResolutions = 0;
+     
+        function isLoading() {
+            return xhrResolutions < xhrCreations;
+        }
+     
+        function updateStatus() {
+            $rootScope.loading = isLoading();
+        }
+     
+        return {
+            request: function (config) {
+                xhrCreations++;
+                updateStatus();
+                return config;
+            },
+            requestError: function (rejection) {
+                xhrResolutions++;
+                updateStatus();
+                $log.error('Request error:', rejection);
+                return $q.reject(rejection);
+            },
+            response: function (response) {
+                xhrResolutions++;
+                updateStatus();
+                return response;
+            },
+            responseError: function (rejection) {
+                xhrResolutions++;
+                updateStatus();
+                $log.error('Response error:', rejection);
+                return $q.reject(rejection);
+            }
+        };
+    }]);
 
 })();

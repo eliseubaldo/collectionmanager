@@ -43,10 +43,7 @@ angular
             	}); 
 			}
 
-		};
-
-
-		
+		};		
 
 		function updateCollection(){
 			ioService.updateList('collection')

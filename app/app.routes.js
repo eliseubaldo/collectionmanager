@@ -3,7 +3,7 @@
 
     angular
         .module('collectionApp')
-        .config(function ($stateProvider,$urlRouterProvider) {
+        .config(function ($stateProvider,$urlRouterProvider, $httpProvider) {
 
             $urlRouterProvider.otherwise('/home');
 
@@ -43,6 +43,9 @@
                 controller: "browseCtrl",
                 templateUrl: "views/browsecollection.html"
             });
+
+            // Loader Interceptor
+            $httpProvider.interceptors.push('LoadingInterceptor');
           
         });       
     

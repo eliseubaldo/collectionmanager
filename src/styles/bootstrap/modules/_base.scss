@@ -40,3 +40,26 @@ footer{
 	padding:20px 0;
 	height:80px;
 }
+
+
+/* LOADER */
+
+.loader{
+    background: rgba(255,255,255,0.9);
+    width: 100%;
+    height: 100vh;
+    z-index: 2000;
+    position: absolute;
+    color: $primary-color;
+}
+
+.loading{
+	width:122px;
+	height:200px;
+	position: absolute;
+	top:50%;
+	margin-top:-100px;
+	left:50%;
+	margin-left: -66px;
+	color:rgb(241,32,28);
+}
