@@ -41,6 +41,16 @@ angular
             	});
 		}
 
+		function updateCategory(){
+			ioService.updateList('category')
+				.then(function(response){
+					$scope.categoryList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
 
         $scope.getToastPosition = function() {
                 return Object.keys($scope.toastPosition)

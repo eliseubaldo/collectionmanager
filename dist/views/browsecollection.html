@@ -27,14 +27,13 @@
 	</div>
 
 
-	<div ng-if="currentCategory.category_id">
-		
+	<div ng-if="currCollection.collection_id">	
 	
-		<h4>Items in <strong>{{currentCategory.category_name}} </strong></h4>
-		<table class="table" ng-show="category">
+		<h4>Items in <strong>{{currCollection.collection_name}} </strong></h4>
+		<table class="table">
 			<thead>
 				<tr>
-					<th>Category year</th>
+					<th>Category name</th>
 					<th>Item name</th>
 					<th>Item Desc</th>					
 					<th>Item pic</th>					
@@ -42,7 +41,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in itemList | filter:{category_id: currentCategory.category_id}:true | orderBy: 'item_name'">
-					<td>{{currentCategory.category_year}}</td>
+					<td>{{currentCategory.category_name}}</td>
 					<td><a ui-sref="viewitem({itemid:item.item_id})">{{item.item_name}}</a></td>
 					<td>{{item.item_description}}</td>
 					<td><img ng-src="{{ uploadpath + currCollection.collection_name +'/'+item.item_picture}}" alt="" width="50" height="50"></td>

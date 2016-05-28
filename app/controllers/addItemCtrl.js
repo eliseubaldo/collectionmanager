@@ -40,6 +40,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
+            	
 			//populate collection
             	ioService.updateList('collection')
 				.then(function(response){
@@ -50,11 +51,7 @@ angular
             	});
 		}
 
-		function getCollections(){
-			
-		}
-
-
+		
 		$scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
 			$scope.currCollection = str;

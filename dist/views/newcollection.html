@@ -43,7 +43,7 @@
 			  <md-list-item class="md-1-line" ng-repeat="collection in collectionList">
 			    <div class="md-list-item-inner">
 			    	 <img src="assets/images/acorn-icon.svg" class="img-responsive md-avatar" alt="">
-			      <p>{{collection.collection_name}}</p>	      
+			      <p><a ui-sref="browse({collection_id:collection.collection_id})">{{collection.collection_name}}</a></p>	      
 			    </div>
 			  </md-list-item>
 			</md-list>

@@ -4,7 +4,7 @@
 $dbname = 'collectionManagerDB';
 $dbuser = 'eliseu';
 $dbpass = '123456';
-$dbhost = '107.180.54.170:3306';
+$dbhost = 'localhost';
 $connect = mysql_connect($dbhost, $dbuser, $dbpass) or die("Unable to Connect to '$dbhost'");
 mysql_select_db($dbname) or die("Could not open the db '$dbname'");
 $test_query = "SHOW TABLES FROM $dbname";

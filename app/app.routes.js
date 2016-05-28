@@ -39,7 +39,7 @@
             })
 
             .state("browse", {
-                url: "/browse",
+                url: "/browse/:collection_id",
                 controller: "browseCtrl",
                 templateUrl: "views/browsecollection.html"
             });

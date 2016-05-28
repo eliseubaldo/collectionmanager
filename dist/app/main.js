@@ -53,7 +53,7 @@
             })
 
             .state("browse", {
-                url: "/browse",
+                url: "/browse/:collection_id",
                 controller: "browseCtrl",
                 templateUrl: "views/browsecollection.html"
             });
@@ -103,6 +103,16 @@ angular
             	ioService.updateList('collection')
 				.then(function(response){
 					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
+		function updateCategory(){
+			ioService.updateList('category')
+				.then(function(response){
+					$scope.categoryList = response.data;
 				})
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
@@ -193,6 +203,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
+            	
 			//populate collection
             	ioService.updateList('collection')
 				.then(function(response){
@@ -203,11 +214,7 @@ angular
             	});
 		}
 
-		function getCollections(){
-			
-		}
-
-
+		
 		$scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
 			$scope.currCollection = str;
@@ -269,9 +276,9 @@ angular
 	.module('collectionApp')
 	.controller('browseCtrl', browseCtrl);
 
-	browseCtrl.$inject = ['$scope', 'ioService', 'config'];
+	browseCtrl.$inject = ['$scope', 'ioService', 'config', '$stateParams'];
 
-	function browseCtrl ($scope, ioService, config){
+	function browseCtrl ($scope, ioService, config, $stateParams){
 
 		$scope.categoryList = [];
 		$scope.collectionList = [];
@@ -280,10 +287,28 @@ angular
 		$scope.currCollection = {};
 		$scope.uploadpath = config.uploadpath;		
 		
+		// If already have a collection in stateParameters
+		if($stateParams.collection_id){
+
+			var coll_id = $stateParams.collection_id
+
+			ioService.updateList('collection', coll_id)
+				.then(function(response){
+					console.log('coll do if:'+ response.data);
+					$scope.currCollection = response.data[0];
+					$scope.collection = $scope.currCollection;
+					getItems(false, coll_id);
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
+
 
 		init();
 
 		function init(){
+
 			ioService.updateList('category')
 				.then(function(response){
 					$scope.categoryList = response.data;
@@ -292,36 +317,41 @@ angular
                 	alert('Error:', response.status, response.data);
             	});
 		
-				ioService.updateList('collection')
+				ioService.updateList('collection', false)
 				.then(function(response){
 					$scope.collectionList = response.data;
 				})
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
-            	});
+            	});          			
 			
-				ioService.updateList('item')
+		}		
+
+
+		function getItems(id,coll){
+			console.log('getting items');
+			ioService.updateList('item',id,coll)
 				.then(function(response){
 					$scope.itemList = response.data;
 				})
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}		
+		}
 
 
 		$scope.setCollection = function(collection){
 			var str = JSON.parse(collection);
+			console.log('coll do set:'+ str);
 			$scope.currCollection = str;
+			getItems(false, $scope.currCollection.collection_id);
 		};
 
 		$scope.setCategory = function(category){
 			var str = JSON.parse(category);
-			$scope.currentCategory = str;
-			
+			$scope.currentCategory = str;					
 		};
 
-		
 
 
 	}
@@ -338,10 +368,32 @@ angular
 	.module('collectionApp')
 	.controller('homeCtrl', homeCtrl);
 
-	homeCtrl.$inject = ['$scope'];
+	homeCtrl.$inject = ['$scope', 'ioService'];
 
-	function homeCtrl ($scope){
+	function homeCtrl ($scope, ioService){
 
+		$scope.collectionList = [];
+		$scope.dash = {};
+
+		checkCollection();
+		
+		function checkCollection(){
+			ioService.updateList('collection')
+				.then(function(response){					
+					$scope.collectionList = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+            	
+            ioService.updateList('dash')
+				.then(function(response){					
+					$scope.dash = response.data;
+				})
+				.catch(function (response) {
+                	alert('Error:', response.status, response.data);
+            	});
+		}
 		
 
 	}
@@ -510,7 +562,7 @@ angular
 		return $http.post('backend/include.php?type=cat',category);
 	};
 
-	factory.updateList = function(type, id){
+	factory.updateList = function(type, id, coll){
 		switch (type) {
 			case 'collection':
 				if(id){
@@ -533,10 +585,17 @@ angular
 				if(id){
 					console.log('return Item :'+id);
 					return $http.get('backend/updatelist.php?type=item&id='+id);
+				}else if(coll){
+					console.log('return all Items from coll:'+ coll);
+					return $http.get('backend/updatelist.php?type=item&coll='+coll);
 				}else{
-					console.log('return all Items');
+					console.log('return all Items in all collections');
 					return $http.get('backend/updatelist.php?type=item');
 				}
+			break;
+
+			case 'dash':
+				return $http.get('backend/updatelist.php?type=dash');
 			break;
 
 		}
