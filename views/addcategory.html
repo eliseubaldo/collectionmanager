@@ -1,5 +1,5 @@
 <div class="container">
-	<div layout="row">
+	<div layout="row" layout-padding>
 		<div flex-sm="60" flex-gt-sm="80">
 			<h2>Categories</h2>
 		</div>		
@@ -10,7 +10,7 @@
 
 			<form name="categoryForm" ng-submit="submitForm(category)" accept-charset="utf-8" novalidate>
 
-				<div layout="row">		
+				<div layout="row" layout-padding>		
 
 					<div flex-sm="50" flex-gt-sm="50">
 						<md-input-container class="md-block flex-gt-sm">
@@ -27,13 +27,14 @@
 					</div>		
 				</div>
 
-				<div layout="row" ng-show="newitem"> 		
+				<div layout="row" ng-show="newitem" layout-padding> 		
 					<div flex-sm="50" flex-gt-sm="50">
 						<md-input-container class="md-block flex-gt-sm">
 							<label>Enter category name</label>	
-							<input type="text" ng-model="category.name" required>
+							<input type="text" ng-model="category.name" required ng-pattern="/^[a-z0-9-]+$/i">
 							<div ng-messages="category.name.$error">
 				      			<div ng-message="required">Category is required!</div>
+				      			<div ng-message="pattern">Accept only letters, numbers and -</div>
 				    		</div>
 						</md-input-container>
 					</div>
@@ -47,7 +48,7 @@
 					</div>		    	
 				</div>
 
-				<div layout="row" ng-show="newitem">		
+				<div layout="row" ng-show="newitem" layout-padding>		
 					<div flex-sm="50" flex-gt-sm="50">
 						<md-button class="md-raised md-primary" type="submit" ng-disabled="categoryForm.$invalid">Save</md-button>	
 					</div>
@@ -58,28 +59,31 @@
 
 
 	
+	<div layout="row" layout-padding>
+	<div flex-sm="100" flex-gt-sm="100">	
+		<div ng-if="currCollection.collection_id" class="topSpace">
 
-	<div ng-if="currCollection.collection_id" class="topSpace">
+			<h4>Categories in <strong>{{currCollection.collection_name}} </strong> collection</h4>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>category year</th>
+					<th>category name</th>
+					<th>category id</th>
 
-		<h4>Categories in <strong>{{currCollection.collection_name}} </strong> collection</h4>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>category year</th>
-				<th>category name</th>
-				<th>category id</th>
-
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="category in categoryList | filter:{collection_id: currCollection.collection_id} | orderBy: 'category_year'">
-				<td>{{category.category_year}} </td>
-				<td>{{category.category_name}} </td>
-				<td>{{category.category_id}} </td>
-			</tr>
-		</tbody>
-	</table>
-		
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="category in categoryList | filter:{collection_id: currCollection.collection_id} | orderBy: 'category_year'">
+					<td>{{category.category_year}} </td>
+					<td>{{category.category_name}} </td>
+					<td>{{category.category_id}} </td>
+				</tr>
+			</tbody>
+		</table>
+			
+		</div>
+	</div>
 	</div>
 	
 

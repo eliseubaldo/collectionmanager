@@ -374,6 +374,7 @@ angular
 
 		$scope.collectionList = [];
 		$scope.dash = {};
+		
 
 		checkCollection();
 		
@@ -385,7 +386,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-            	
+
             ioService.updateList('dash')
 				.then(function(response){					
 					$scope.dash = response.data;
@@ -393,8 +394,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}
-		
+		}		 
 
 	}
 
@@ -537,6 +537,27 @@ angular
 
 	}
 
+
+})();	
+
+
+(function(){
+	'use strict';
+
+
+angular
+	.module('collectionApp')
+	.directive('dashboard' ,function(){
+
+		return{
+			restrict: 'E',
+			scope:{
+				dash: '=',
+				collectionList: '='
+			},
+			templateUrl: 'views/templates/dashboard.html'
+		};
+	});
 
 })();	
 

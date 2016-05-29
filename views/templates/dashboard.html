@@ -1,0 +1,23 @@
+<div layout="row" layout-padding>
+	<div flex-sm="50" flex-gt-sm="50">
+		<h3>Collections - {{dash.collections}}</h3>
+		
+
+			<md-list>
+			  <md-list-item class="md-1-line" ng-repeat="collection in collectionList">
+			    <div class="md-list-item-inner">
+			    	 <img src="assets/images/acorn-icon.svg" class="img-responsive md-avatar" alt="">
+			      <p><a ui-sref="browse({collection_id:collection.collection_id})">{{collection.collection_name}}</a></p>	      
+			    </div>
+			  </md-list-item>
+			</md-list>
+	</div>
+
+	<div flex-sm="50" flex-gt-sm="50">
+		<h3>Status</h3>
+		<ul>
+			<li>Categories: {{dash.categories}}</li>
+			<li>Items: {{dash.items}}</li>
+		</ul>				
+	</div>		
+</div>

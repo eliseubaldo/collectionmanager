@@ -1,0 +1,23 @@
+{
+  "name": "collectionmanager",
+  "description": "angular app to manage collections",
+  "main": "index.html",
+  "authors": [
+    "Eliseu Baldo"
+  ],
+  "license": "MIT",
+  "homepage": "www.thepixelhand.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-material": "^1.0.9",
+    "angular-ui-router": "^0.3.0"
+  }
+}

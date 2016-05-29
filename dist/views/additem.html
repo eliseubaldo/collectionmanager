@@ -1,5 +1,5 @@
 <div class="container">
-	<div layout="row">
+	<div layout="row" layout-padding>
 		<div flex-sm="100" flex-gt-sm="80">
 			<h2>Add Item</h2>
 		</div>	
@@ -8,7 +8,7 @@
 
 	<form name="itemForm" ng-submit="submitForm(item)" accept-charset="utf-8">
 
-		<div layout="row">
+		<div layout="row" layout-padding>
 			<div flex-sm="50" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 					<label for="">Select Collection</label>
@@ -29,13 +29,14 @@
 		</div>
 
 
-		<div layout="row">
+		<div layout="row" layout-padding>
 			<div flex-sm="50" flex-gt-sm="50"> 
 				<md-input-container class="md-block flex-gt-sm">
 							<label>Item Name</label>	
-							<input type="text" ng-model="item.name" required>
+							<input type="text" ng-model="item.name" required ng-pattern="/^[a-z0-9-]+$/i">
 							<div ng-messages="item.name.$error">
 				      			<div ng-message="required">a Name is required!</div>
+				      			<div ng-message="pattern">Only Letters, numbers and -</div>
 				    		</div>
 						</md-input-container>
 				</md-input-container>
@@ -50,7 +51,7 @@
 			</div>
 		</div>
 
-		<div layout="row">
+		<div layout="row" layout-padding>
 			<div flex-sm="50" flex-gt-sm="50">		
 
 			<label for="">Item Picture</label>	
@@ -67,7 +68,7 @@
 
 		</div>
 
-		<div layout="row" layout-align="start center" class="topSpace">
+		<div layout="row" layout-align="start center" class="topSpace" layout-padding>
 			<div flex-sm="50" flex-gt-sm="50" >
 				<md-button class="md-raised md-primary" type="submit" ng-disabled="itemForm.$invalid">Save</md-button>
 			</div>	

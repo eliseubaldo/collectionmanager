@@ -1,5 +1,5 @@
 <div class="container">
-	<div layout="row">
+	<div layout="row" layout-padding>
 		<div flex-sm="60" flex-gt-sm="80">
 			<h2>Collections</h2>
 		</div>
@@ -7,20 +7,20 @@
 			<md-button class="md-raised md-accent" ng-click="newitem=true">Add new collection</md-button>
 		</div>		
 	</div>
-	
-	
+
 		<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
 
-			<div layout="row" ng-show="newitem">
+			<div layout="row" ng-show="newitem" layout-padding>
 				<div flex-sm="40" flex-gt-sm="40">
 			
-			<md-input-container class="md-block">
-				<label>Enter your collection name</label>	
-				<input type="text" ng-model="collection.name" required>
-				<div ng-messages="collection.name.$error">
-	      			<div ng-message="required">Collection is required!</div>
-	    		</div>
-			</md-input-container>
+					<md-input-container class="md-block">
+						<label>Enter your collection name</label>	
+						<input type="text" ng-model="collection.name" required ng-pattern="/^[a-z0-9]+$/i">
+						<div ng-messages="collection.name.$error">
+			      			<div ng-message="required">Collection is required!</div>
+			      			<div ng-message="pattern">Only Letters and Numbers</div>
+			    		</div>
+					</md-input-container>
 
 				</div>
 
