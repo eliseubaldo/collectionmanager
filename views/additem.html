@@ -8,8 +8,8 @@
 
 	<form name="itemForm" ng-submit="submitForm(item)" accept-charset="utf-8">
 
-		<div layout="row" layout-padding>
-			<div flex-sm="50" flex-gt-sm="50">
+		<div layout="row" layout-sm="column" layout-xs="column" layout-padding>
+			<div flex-sm="100" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 					<label for="">Select Collection</label>
 					<md-select ng-model="collection" required ng-change="setCollection(collection)">
@@ -18,7 +18,7 @@
 					</md-input-container>
 			</div>
 		
-			<div flex-sm="50" flex-gt-sm="50">
+			<div flex-sm="100" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 					<label>Select category</label>	
 					<md-select ng-model="item.category" required>
@@ -29,8 +29,8 @@
 		</div>
 
 
-		<div layout="row" layout-padding>
-			<div flex-sm="50" flex-gt-sm="50"> 
+		<div layout="row" layout-sm="column" layout-xs="column" layout-padding>
+			<div flex-sm="100" flex-gt-sm="50"> 
 				<md-input-container class="md-block flex-gt-sm">
 							<label>Item Name</label>	
 							<input type="text" ng-model="item.name" required ng-pattern="/^[a-z0-9-]+$/i">
@@ -42,7 +42,7 @@
 				</md-input-container>
 			</div>
 
-			<div flex-sm="50" flex-gt-sm="50">
+			<div flex-sm="100" flex-gt-sm="50">
 				<md-input-container class="md-block flex-gt-sm">
 							<label>Item Description</label>	
 							<input type="text" ng-model="item.desc">
@@ -51,8 +51,8 @@
 			</div>
 		</div>
 
-		<div layout="row" layout-padding>
-			<div flex-sm="50" flex-gt-sm="50">		
+		<div layout="row" layout-sm="column" layout-xs="column" layout-padding>
+			<div flex-sm="100" flex-gt-sm="50">		
 
 			<label for="">Item Picture</label>	
 			<input type="file" id="fileInput" ngf-select ng-model="item.picture" name="file"  
@@ -61,15 +61,15 @@
              <md-button id="uploadButton" class="md-raised md-primary"> Choose File</md-button>
          	</div>
 
-         	<div flex-sm="50" flex-gt-sm="50">
+         	<div flex-sm="100" flex-gt-sm="50">
               <img ng-show="myForm.file.$valid" ngf-thumbnail="item.picture" class="thumb"> 
               <md-button class="md-raised md-primary" ng-click="item.picture = null" ng-show="item.picture">Remove</md-button>
              </div>
 
 		</div>
 
-		<div layout="row" layout-align="start center" class="topSpace" layout-padding>
-			<div flex-sm="50" flex-gt-sm="50" >
+		<div layout="row" layout-sm="column" layout-xs="column" layout-align="start center" class="topSpace" layout-padding>
+			<div flex-sm="100" flex-gt-sm="50" >
 				<md-button class="md-raised md-primary" type="submit" ng-disabled="itemForm.$invalid">Save</md-button>
 			</div>	
 		</div>

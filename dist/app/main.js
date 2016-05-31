@@ -70,6 +70,140 @@
 	'use strict';
 
 
+	angular
+		.module('collectionApp')
+		.directive('dashboard' ,function(){
+
+			return{
+				restrict: 'E',
+				scope:{
+					dash: '=',
+					collectionList: '='
+				},
+				templateUrl: 'views/templates/dashboard.html'
+			};
+		});
+
+})();	
+
+
+(function(){
+	'use strict';
+
+angular
+	.module('collectionApp')
+	.factory('ioService', function($http){
+	
+	var factory = {};
+
+
+	factory.addCollection = function(collection){
+		
+		return $http.post('backend/include.php?type=col',collection);
+		
+	};
+
+	factory.addCategory = function(category){
+		console.log(category);
+		return $http.post('backend/include.php?type=cat',category);
+	};
+
+	factory.updateList = function(type, id, coll){
+		switch (type) {
+			case 'collection':
+				if(id){
+					console.log('return collection :'+id);
+					return $http.get('backend/updatelist.php?type=col&id='+id);
+				}else{
+					return $http.get('backend/updatelist.php?type=col');
+				}
+			break;
+
+			case 'category':
+				if(id){
+					return $http.get('backend/updatelist.php?type=cat&id='+id);
+				}else{
+					return $http.get('backend/updatelist.php?type=cat');
+				}
+			break;
+
+			case 'item':
+				if(id){
+					console.log('return Item :'+id);
+					return $http.get('backend/updatelist.php?type=item&id='+id);
+				}else if(coll){
+					console.log('return all Items from coll:'+ coll);
+					return $http.get('backend/updatelist.php?type=item&coll='+coll);
+				}else{
+					console.log('return all Items in all collections');
+					return $http.get('backend/updatelist.php?type=item');
+				}
+			break;
+
+			case 'dash':
+				return $http.get('backend/updatelist.php?type=dash');
+			break;
+
+		}
+	};
+
+
+	return factory;
+
+});
+
+})();
+(function(){
+    'use strict';
+
+    // Loader Service
+angular
+    .module('collectionApp')
+    .service('LoadingInterceptor', ['$q', '$rootScope', '$log', 
+    function ($q, $rootScope, $log) {
+        
+        var xhrCreations = 0;
+        var xhrResolutions = 0;
+     
+        function isLoading() {
+            return xhrResolutions < xhrCreations;
+        }
+     
+        function updateStatus() {
+            $rootScope.loading = isLoading();
+        }
+     
+        return {
+            request: function (config) {
+                xhrCreations++;
+                updateStatus();
+                return config;
+            },
+            requestError: function (rejection) {
+                xhrResolutions++;
+                updateStatus();
+                $log.error('Request error:', rejection);
+                return $q.reject(rejection);
+            },
+            response: function (response) {
+                xhrResolutions++;
+                updateStatus();
+                return response;
+            },
+            responseError: function (rejection) {
+                xhrResolutions++;
+                updateStatus();
+                $log.error('Response error:', rejection);
+                return $q.reject(rejection);
+            }
+        };
+    }]);
+
+})();
+(function(){
+	'use strict';
+
+
 angular
 	.module('collectionApp')
 	.controller('addCategoryCtrl', addCategoryCtrl);
@@ -274,6 +408,28 @@ angular
 
 angular
 	.module('collectionApp')
+	.controller('appCtrl', appCtrl);
+
+	appCtrl.$inject = ['$scope', '$mdSidenav'];
+
+	function appCtrl ($scope, $mdSidenav){
+
+		
+		$scope.toggleLeft = function() {
+		    $mdSidenav('leftMenu').toggle();
+		};
+
+	}
+
+})();	
+
+
+(function(){
+	'use strict';
+
+
+angular
+	.module('collectionApp')
 	.controller('browseCtrl', browseCtrl);
 
 	browseCtrl.$inject = ['$scope', 'ioService', 'config', '$stateParams'];
@@ -368,9 +524,9 @@ angular
 	.module('collectionApp')
 	.controller('homeCtrl', homeCtrl);
 
-	homeCtrl.$inject = ['$scope', 'ioService'];
+	homeCtrl.$inject = ['$scope', 'ioService', '$mdSidenav'];
 
-	function homeCtrl ($scope, ioService){
+	function homeCtrl ($scope, ioService, $mdSidenav){
 
 		$scope.collectionList = [];
 		$scope.dash = {};
@@ -394,7 +550,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}		 
+		}
 
 	}
 
@@ -540,138 +696,3 @@ angular
 
 })();	
 
-
-(function(){
-	'use strict';
-
-
-angular
-	.module('collectionApp')
-	.directive('dashboard' ,function(){
-
-		return{
-			restrict: 'E',
-			scope:{
-				dash: '=',
-				collectionList: '='
-			},
-			templateUrl: 'views/templates/dashboard.html'
-		};
-	});
-
-})();	
-
-
-(function(){
-	'use strict';
-
-angular
-	.module('collectionApp')
-	.factory('ioService', function($http){
-	
-	var factory = {};
-
-
-	factory.addCollection = function(collection){
-		
-		return $http.post('backend/include.php?type=col',collection);
-		
-	};
-
-	factory.addCategory = function(category){
-		console.log(category);
-		return $http.post('backend/include.php?type=cat',category);
-	};
-
-	factory.updateList = function(type, id, coll){
-		switch (type) {
-			case 'collection':
-				if(id){
-					console.log('return collection :'+id);
-					return $http.get('backend/updatelist.php?type=col&id='+id);
-				}else{
-					return $http.get('backend/updatelist.php?type=col');
-				}
-			break;
-
-			case 'category':
-				if(id){
-					return $http.get('backend/updatelist.php?type=cat&id='+id);
-				}else{
-					return $http.get('backend/updatelist.php?type=cat');
-				}
-			break;
-
-			case 'item':
-				if(id){
-					console.log('return Item :'+id);
-					return $http.get('backend/updatelist.php?type=item&id='+id);
-				}else if(coll){
-					console.log('return all Items from coll:'+ coll);
-					return $http.get('backend/updatelist.php?type=item&coll='+coll);
-				}else{
-					console.log('return all Items in all collections');
-					return $http.get('backend/updatelist.php?type=item');
-				}
-			break;
-
-			case 'dash':
-				return $http.get('backend/updatelist.php?type=dash');
-			break;
-
-		}
-	};
-
-
-	return factory;
-
-});
-
-})();
-(function(){
-    'use strict';
-
-    // Loader Service
-angular
-    .module('collectionApp')
-    .service('LoadingInterceptor', ['$q', '$rootScope', '$log', 
-    function ($q, $rootScope, $log) {
-        
-        var xhrCreations = 0;
-        var xhrResolutions = 0;
-     
-        function isLoading() {
-            return xhrResolutions < xhrCreations;
-        }
-     
-        function updateStatus() {
-            $rootScope.loading = isLoading();
-        }
-     
-        return {
-            request: function (config) {
-                xhrCreations++;
-                updateStatus();
-                return config;
-            },
-            requestError: function (rejection) {
-                xhrResolutions++;
-                updateStatus();
-                $log.error('Request error:', rejection);
-                return $q.reject(rejection);
-            },
-            response: function (response) {
-                xhrResolutions++;
-                updateStatus();
-                return response;
-            },
-            responseError: function (rejection) {
-                xhrResolutions++;
-                updateStatus();
-                $log.error('Response error:', rejection);
-                return $q.reject(rejection);
-            }
-        };
-    }]);
-
-})();

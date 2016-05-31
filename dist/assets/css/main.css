@@ -3405,6 +3405,14 @@ header {
   margin-right: 20px;
 }
 
+.truncate {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: red;
+}
+
 .thumb {
   width: 100px;
   height: auto;
@@ -3440,6 +3448,21 @@ footer {
   color: #f1201c;
 }
 
+@media (max-width: 768px) {
+  h1, h2, h3 {
+    margin-top: 10px;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    margin-bottom: 5px;
+  }
+}
 .clearfix:before, .clearfix:after {
   content: " ";
   display: table;

@@ -6,9 +6,9 @@ angular
 	.module('collectionApp')
 	.controller('homeCtrl', homeCtrl);
 
-	homeCtrl.$inject = ['$scope', 'ioService'];
+	homeCtrl.$inject = ['$scope', 'ioService', '$mdSidenav'];
 
-	function homeCtrl ($scope, ioService){
+	function homeCtrl ($scope, ioService, $mdSidenav){
 
 		$scope.collectionList = [];
 		$scope.dash = {};
@@ -32,7 +32,7 @@ angular
 				.catch(function (response) {
                 	alert('Error:', response.status, response.data);
             	});
-		}		 
+		}
 
 	}
 

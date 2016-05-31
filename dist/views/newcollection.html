@@ -1,17 +1,17 @@
 <div class="container">
-	<div layout="row" layout-padding>
-		<div flex-sm="60" flex-gt-sm="80">
+	<div layout="row" layout-sm="column" layout-xs="column" layout-padding>
+		<div flex"33" flex-gt-sm="66">
 			<h2>Collections</h2>
 		</div>
-		<div flex-sm="20" flex-gt-sm="20">
+		<div flex="66" flex-gt-sm="33">
 			<md-button class="md-raised md-accent" ng-click="newitem=true">Add new collection</md-button>
 		</div>		
 	</div>
 
 		<form name="collectionForm" ng-submit="submitForm(collection)" accept-charset="utf-8" novalidate>
 
-			<div layout="row" ng-show="newitem" layout-padding>
-				<div flex-sm="40" flex-gt-sm="40">
+			<div layout="row" layout-sm="column" layout-xs="column" ng-show="newitem" layout-padding>
+				<div flex-sm="100" flex-gt-sm="40">
 			
 					<md-input-container class="md-block">
 						<label>Enter your collection name</label>	
@@ -24,7 +24,7 @@
 
 				</div>
 
-				<div flex-sm="40" flex-gt-sm="40">
+				<div flex-sm="100" flex-gt-sm="40">
 					<md-button class="md-raised md-primary" type="submit" ng-disabled="collectionForm.$invalid" ng-click="newitem = false">Save</md-button>			
 				</div>
 

@@ -3,12 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Collection Manager</title>
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.9/angular-material.min.css">
 	<link rel="stylesheet" href="assets/css/main.min.css">
 </head>
-<body ng-app="collectionApp" layout="column" layout-fill>
+<body ng-app="collectionApp" layout="column" layout-fill ng-controller="appCtrl">
 
 	<!-- Loader -->
 	<div data-ng-if="loading" class="loader">
@@ -29,24 +30,61 @@
 	        <h2>
 	          <span>Collection Manager</span>
 	        </h2>
-	        <div flex></div>
-	        <md-button class="md-raised" aria-label="Add Collection" ui-sref="newcollection">
-	          Collections
-	        </md-button>
-	        <md-button class="md-raised" aria-label="Add Category" ui-sref="addcategory" >
-	         Categories
-	        </md-button>
-	        <md-button class="md-raised" aria-label="Add Item" ui-sref="additem" >
-	         Add Item
-	        </md-button>
-	        <md-button class="md-raised" aria-label="Browse" ui-sref="browse" >
-	         Browse
-	        </md-button>
-	        
+			
+			
+	        <div class="hidden-xs hidden-sm" flex>
+	        	<div layout-align="end center">
+		        	<md-button class="md-raised" aria-label="Add Collection" ui-sref="newcollection">
+			          Collections
+			        </md-button>
+			        <md-button class="md-raised" aria-label="Add Category" ui-sref="addcategory" >
+			         Categories
+			        </md-button>
+			        <md-button class="md-raised" aria-label="Add Item" ui-sref="additem" >
+			         Add Item
+			        </md-button>
+			        <md-button class="md-raised" aria-label="Browse" ui-sref="browse" >
+			         Browse
+			        </md-button>
+			    </div>
+	        </div>
+
+	        <md-button class="hidden-lg hidden-md" ng-click="toggleLeft()">Menu</md-button>
+
 	      </div>
 	    </md-toolbar>
 		</div>
 	</header><!-- /header -->
+
+	<!-- SideNav -->
+
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="leftMenu">
+	        <md-toolbar layout="row" class="md-theme-indigo">
+	        	<h1 class="md-toolbar-tools">Menu</h1> 
+	        	<md-button ng-click="toggleLeft()" aria-label="Close" class="" >Close</md-button>
+	      	</md-toolbar>
+	        <md-list flex>
+		        
+		        <md-list-item>
+		            <md-button class="md-raised" aria-label="Add Collection" ui-sref="newcollection" ng-click="toggleLeft()">Collections</md-button>
+		        </md-list-item>
+
+		        
+		        <md-list-item >
+		            <md-button class="md-raised" aria-label="Add Category" ui-sref="addcategory" ng-click="toggleLeft()">Categories</md-button>
+		        </md-list-item>
+
+		        
+		        <md-list-item >
+			        <md-button class="md-raised" aria-label="Add Item" ui-sref="additem" ng-click="toggleLeft()">         Add Item</md-button>
+		        </md-list-item>
+
+		        <md-list-item >
+			        <md-button class="md-raised" aria-label="Browse" ui-sref="browse" ng-click="toggleLeft()">	         Browse</md-button>
+		        </md-list-item>
+	      	</md-list>
+    	</md-sidenav>
+	<!-- / sidenav -->
 
 
 	 <main flex="grow" layout="row" layout-align="center start" ui-view="">
