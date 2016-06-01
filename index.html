@@ -24,11 +24,15 @@
 		<div class="container">
 		<md-toolbar>
 	      <div class="md-toolbar-tools">
-	      	<div flex="40">
-	      		<div class="logo"><a ui-sref="home"><img src="assets/images/raccoon-only.svg" class="img-responsive" alt=""></a>
-	      		</div>
+	      	<div layout="row" flex="40" layout-align="start center">
+	      		<div flex="33" flex-gt-sm="15" flex-xs="45">
+		      		<div class="logo"><a ui-sref="home"><img src="assets/images/raccoon-only.svg" class="img-responsive" alt=""></a>
+		      		</div>
+		        </div>
+		        <div flex="66" flex-gt-sm="85" flex-xs="55">
+		        	<h3>Collection Manager</h3>		
+		        </div>
 		        
-		        <p>Collection Manager</p>	
 	      	</div>
 			
 	        <div class="hidden-xs hidden-sm" layout="row" layout-align="end center" flex="60">
@@ -47,8 +51,21 @@
 			        </md-button>
 			    </div>
 	        </div>
-
-	        <md-button class="hidden-lg hidden-md" ng-click="toggleLeft()">Menu</md-button>
+	        <div class="hidden-lg hidden-md" layout="row" layout-align="end center" flex="60">
+	        	<md-button  ng-click="toggleLeft()">
+	        	<svg width="36" height="40">
+ <g>
+  <rect fill="none" id="canvas_background" height="42" width="38" y="-1" x="-1"/>
+ </g>
+ <g>
+   <rect stroke="#000" rx="3" id="svg_1" height="4" width="30" y="9.5" x="3" stroke-width="0" fill="#ffffff"/>
+  <rect stroke="#000" rx="3" id="svg_2" height="4" width="30" y="20.5" x="3" stroke-width="0" fill="#ffffff"/>
+  <rect stroke="#000" rx="3" id="svg_3" height="4" width="30" y="31.5" x="3" stroke-width="0" fill="#ffffff"/>
+ </g>
+</svg>
+	        	
+	        </md-button>
+	    	</div>
 
 	      </div>
 	    </md-toolbar>

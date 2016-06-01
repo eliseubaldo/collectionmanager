@@ -13,9 +13,8 @@ $divider-color:        #B6B6B6;
 
 body{
 	font-family: 'Montserrat', sans-serif;
-	
+	font-size:1.4em;	
 }
-
 header{
 	background:$primary-color;
 	margin-bottom:30px;
@@ -25,6 +24,11 @@ header{
 .bottomSpace{margin-bottom:30px;}
 
 .logo{	width:50px; margin-right:20px;}
+
+ h2{
+ 	margin-top:10px;
+ 	margin-bottom:10px;
+ }
 
 
 .truncate{
@@ -76,13 +80,7 @@ footer{
 	color:rgb(241,32,28);
 }
 
-
-
-@media (max-width: 768px){
-
-	h1,h2,h3{
-		margin-top:10px;
-	}
+@media (max-width: 980px){
 
 	.container{
 		width:100%;
@@ -90,8 +88,20 @@ footer{
 		padding:0;
 	}
 
+}
+
+@media (max-width: 768px){
+
+	h1,h2,h3{
+		margin-top:10px;
+	}
+
 	header{
 		margin-bottom:5px;
+	}
+
+	header h3{
+		font-size:18px !important;
 	}
 
 }
