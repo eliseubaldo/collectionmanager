@@ -13,6 +13,7 @@ $divider-color:        #B6B6B6;
 
 body{
 	font-family: 'Montserrat', sans-serif;
+	
 }
 
 header{
@@ -47,6 +48,9 @@ footer{
 	margin-top:20px;
 	padding:20px 0;
 	height:80px;
+
+  -webkit-flex: 0 0 115px;
+  flex: 0 0 115px;
 }
 
 

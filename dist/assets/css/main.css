@@ -3425,6 +3425,9 @@ footer {
   margin-top: 20px;
   padding: 20px 0;
   height: 80px;
+  -webkit-flex: 0 0 115px;
+  -ms-flex: 0 0 115px;
+      flex: 0 0 115px;
 }
 
 /* LOADER */

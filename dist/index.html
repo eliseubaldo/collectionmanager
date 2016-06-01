@@ -24,23 +24,22 @@
 		<div class="container">
 		<md-toolbar>
 	      <div class="md-toolbar-tools">
-	        
-	        <div class="logo"><a ui-sref="home"><img src="assets/images/raccoon-only.svg" class="img-responsive" alt=""></a></div>
-	        
-	        <h2>
-	          <span>Collection Manager</span>
-	        </h2>
+	      	<div flex="40">
+	      		<div class="logo"><a ui-sref="home"><img src="assets/images/raccoon-only.svg" class="img-responsive" alt=""></a>
+	      		</div>
+		        
+		        <p>Collection Manager</p>	
+	      	</div>
 			
-			
-	        <div class="hidden-xs hidden-sm" flex>
-	        	<div layout-align="end center">
+	        <div class="hidden-xs hidden-sm" layout="row" layout-align="end center" flex="60">
+	        	<div>
 		        	<md-button class="md-raised" aria-label="Add Collection" ui-sref="newcollection">
 			          Collections
 			        </md-button>
 			        <md-button class="md-raised" aria-label="Add Category" ui-sref="addcategory" >
 			         Categories
 			        </md-button>
-			        <md-button class="md-raised" aria-label="Add Item" ui-sref="additem" >
+			        <md-button class="md-raised" aria-label="Add Item" ui-sref="additem">
 			         Add Item
 			        </md-button>
 			        <md-button class="md-raised" aria-label="Browse" ui-sref="browse" >
@@ -87,17 +86,21 @@
 	<!-- / sidenav -->
 
 
-	 <main flex="grow" layout="row" layout-align="center start" ui-view="">
-    	
+	 <main flex layout="column">
+    	<div ui-view="" flex="grow">
+    		
+    	</div>
+
+    	<footer layout-padding>
+			<div class="container">
+				Footer
+			</div>
+		</footer>	
     </main>
 
 
 	
-	<footer flex="nogrow" layout="row" layout-align="center end">
-		<div class="container">
-			Footer
-		</div>
-	</footer>
+	
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
 
