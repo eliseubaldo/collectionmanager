@@ -6,7 +6,8 @@
     angular
         .module('collectionApp')
         .constant('config', {
-            uploadpath: 'uploads/'
+            uploadpath: 'uploads/',
+            api: '../backend/'
         });
     
 })();
